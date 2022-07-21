@@ -1,0 +1,156 @@
+@charset "UTF-8";
+/* 共通 */
+header{
+    background-color: rgba(90, 174, 6, 1);
+    padding: 2px;
+    color: white;
+    text-align: center;
+}
+body {
+    margin: 0 auto;
+    text-align: center;
+}
+textarea {
+    resize: none;
+    width: 80%;
+    height: 120px;
+}
+.menu {
+    width: 25%;
+}
+ul {
+    float: left;
+}
+a:link, a:visited, a:hover, a:active {
+    color: black;
+}
+.documents {
+    white-space: pre-wrap;
+}
+/* トップ画面 */
+/* タイトル */
+.top_property_management,
+.top_staff,
+.top_blog,
+.top_news {
+    padding: 4px;
+    letter-spacing: 8px;
+    color: #fff;
+    margin: 14px;
+    font-size: 24px;
+    width: 80%
+}
+.top_property_management {
+    background: rgba(90, 174, 6, 1);
+    -webkit-box-shadow: 5px 5px 0 #007032;
+    box-shadow: 5px 5px 0 #007032;
+}
+.top_staff {
+    background: rgba(90, 174, 6, 1);
+    -webkit-box-shadow: 5px 5px 0 #007032;
+    box-shadow: 5px 5px 0 #007032;
+}
+.top_blog {
+    background: rgba(90, 174, 6, 1);
+    -webkit-box-shadow: 5px 5px 0 #007032;
+    box-shadow: 5px 5px 0 #007032;
+}
+.top_news {
+    background: rgba(90, 174, 6, 1);
+    -webkit-box-shadow: 5px 5px 0 #007032;
+    box-shadow: 5px 5px 0 #007032;
+}
+.top_menu {
+    margin: 28px 81px auto;
+}
+/* 小タイトル */
+.top_sign_up,
+.top_show_all {
+    font-size: 24px;
+    font-weight: bold;
+    list-style: none;
+    text-align: left;
+    letter-spacing: 8px;
+}
+/* リスト */
+.top_list {
+    color: #404040;
+    border-left: solid 6px rgba(90, 174, 6, 1);
+    border-bottom: solid 2px #dadada;
+    background: whitesmoke;
+    margin: 12px 0;
+    line-height: 1.5;
+    padding: 8px;
+    list-style-type: none!important;
+    font-weight: bold;
+    letter-spacing: 8px;
+    width: 200%;
+    font-size: 16px;
+}
+.top_list a {
+    display: block;
+}
+
+/* テーブル */
+table {
+    border: 1px solid rgba(0,0,0,.1);
+    table-layout: fixed;
+    width: 70%;
+    margin: auto;
+}
+table th, table td {
+    border: 1px solid rgba(0,0,0,.1);
+    padding: .6em;
+    text-align: center;
+    background: #fff;
+}
+table th {
+    background-color: rgba(255, 241, 144, 1);
+    font-weight: bold;
+    width: 10%;
+}
+table td {
+    width: 90%;
+}
+table th:first-child {
+    width: 100px;
+}
+.table_top {
+    background-color: rgba(90, 174, 6, 1);
+    color: white;
+}
+.hidden_td {
+    display: none;
+}
+/* 必須項目 */
+.required:after {
+    margin-left: 1.0em;
+    padding: 2px 8px 2px 8px;
+    border-radius: 6px;
+    font-size: 0.6em;
+    color: white;
+    background-color: #C44;
+    content: "必須";
+}
+/* 登録ボタン */
+.show_edit_btn,
+.sign_up_btn {
+    margin: 32px;
+}
+
+
+/* 最大入力文字 */
+#maxLengthLabel {
+    display: block;
+}
+
+/* 最大入力文字表示 */
+#showSalesComment,
+#showIntroComment,
+#showTerms {
+    color: green;
+}
+
+#setbackLengthForm {
+    display: none
+}

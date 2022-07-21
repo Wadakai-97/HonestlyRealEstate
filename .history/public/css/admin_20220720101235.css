@@ -1,0 +1,239 @@
+@charset "UTF-8";
+/* 共通 */
+header{
+    background-color: black;
+    padding: 4px;
+    text-align: center;
+}
+header a:visited {
+    color: white;
+}
+a:visited {
+    color: black;
+    letter-spacing: 4px;
+    text-decoration: none;
+}
+body {
+    margin: 0 auto;
+    text-align: center;
+}
+h2 {
+    padding: 12px;
+}
+textarea {
+    resize: none;
+    width: 80%;
+    height: 280px;
+}
+.menu {
+    width: 25%;
+}
+ul {
+    float: left;
+}
+
+img {
+    max-width: 100%;
+    height:auto;
+}
+
+.documents {
+    white-space: pre-wrap;
+}
+/* トップ画面 */
+/* タイトル */
+.top_property_management,
+.top_staff,
+.top_blog,
+.top_news,
+.top_customer {
+    padding: 4px;
+    letter-spacing: 8px;
+    color: #fff;
+    margin: 14px;
+    font-size: 24px;
+    width: 80%;
+    background: rgba(2, 31, 136, 0.9);
+    -webkit-box-shadow: 5px 5px 0 #29304b;
+    box-shadow: 5px 5px 0 #29304b;
+}
+.top_menu {
+    margin: 28px 81px auto;
+}
+/* 小タイトル */
+.top_sign_up,
+.top_show_all {
+    font-size: 24px;
+    font-weight: bold;
+    list-style: none;
+    text-align: left;
+    letter-spacing: 8px;
+}
+/* リスト */
+.top_list {
+    color: #404040;
+    border-left: solid 6px rgba(2, 31, 136, 0.9);
+    border-bottom: solid 2px #dadada;
+    background: whitesmoke;
+    margin: 12px 0;
+    line-height: 1.5;
+    padding: 8px;
+    list-style-type: none!important;
+    font-weight: bold;
+    letter-spacing: 8px;
+    width: 200%;
+    font-size: 16px;
+}
+.top_list a {
+    display: block;
+}
+
+/* テーブル */
+table {
+    border: 1px solid rgba(0,0,0,.1);
+    table-layout: fixed;
+    width: 70%;
+    margin: auto;
+}
+table th, table td {
+    border: 1px solid rgba(0,0,0,.1);
+    padding: .6em;
+    text-align: center;
+    background: #fff;
+}
+table th {
+    background-color: rgba(238, 242, 245, 1);
+    font-weight: bold;
+}
+.table_top {
+    background-color: rgba(2, 31, 136, 0.9);
+    color: white;
+}
+.hidden_td {
+    display: none;
+}
+
+/* 検索フォームテーブル */
+.filtering_table {
+    margin-bottom: 24px;
+}
+.filtering_table thead tr th {
+    color: black;
+}
+.filtering_table,
+.filtering_table th,
+.filtering_table td {
+    border: none;
+}
+.filtering_table th {
+    background: white;
+    color: blue;
+}
+
+/* 検索フォーム */
+.filtering_form {
+    margin: 36px auto;
+}
+
+/* 必須項目 */
+.required:after {
+    margin-left: 1.0em;
+    padding: 2px 8px 2px 8px;
+    border-radius: 6px;
+    font-size: 0.6em;
+    color: white;
+    background-color: #C44;
+    content: "必須";
+}
+/* 登録ボタン */
+.show_edit_btn,
+.sign_up_btn {
+    margin: 32px;
+}
+
+/* 最大入力文字 */
+#maxLengthLabel {
+    display: block;
+}
+
+/* 最大入力文字表示 */
+#countDownSalesComment,
+#countDownIntroComment,
+#countDownComment,
+#countDownContent,
+#countDownTerms,
+#countDownTitle,
+#countDownNews {
+    color: green;
+}
+
+#balconyAreaForm,
+#setbackLengthForm {
+    visibility: hidden;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inputForm {
+    display: flex;
+}
+
+/* テーブルデザイン */
+.table_item {
+    width: 20px;
+}
+.table_content {
+    width: 50px;
+}
+.combine_td_left {
+    border-right: none;
+}
+.combine_td_right {
+    border-left: none;
+}
+/* 編集画面テーブル */
+.edit_menu,
+.edit_menu tbody,
+.edit_menu th,
+.edit_menu td {
+    border: none;
+}
+.edit_menu_link {
+    width: 100%;
+    height: 100%;
+    display:  block;
+}
+.property_introduction tr {
+    height: 320px
+}
+
+/* 画像編集テーブル */
+.photo_edit_table {
+    width: 1502px;
+}
+.property_images {
+    display: flex;
+    flex-wrap: wrap;
+}
+.property_images_block {
+    width: 300px;
+    height: 600px;
+}
+.property_images_block img {
+    padding: 24px 0px 32px 0;
+}
+.property_image_block textarea {
+    width: 80%;
+    height: 20%;
+}
+
+/* 長文の以下略 */
+.ellipsis_mark {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
