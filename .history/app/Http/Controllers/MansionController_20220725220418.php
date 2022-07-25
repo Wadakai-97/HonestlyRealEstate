@@ -81,7 +81,7 @@ class MansionController extends Controller
     public function adminSearch(Request $request) {
         $pref = $request->pref;
         $municipalities = $request->municipalities ?? '';
-        $apartment_name = $request->apartment_name ?? '';
+        $apartment_name = $request->apartment_name;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
         $lowest_occupation_area = $request->lowest_occupation_area;

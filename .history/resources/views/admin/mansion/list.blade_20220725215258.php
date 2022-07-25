@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <th>最寄り駅</th>
-                <td>
+                <td colspan=3>
                     <p>エリア</p>
                     <select name="area" id="area">
                         <option value="">選択してください。</option>
@@ -71,9 +71,8 @@
                         <select name="station" id="station">
                             <option value="">路線を選択してください。</option>
                         </select>
+                    <input type="number" name="walking_distance_station">分以内
                 </td>
-                <th>駅徒歩</th>
-                <td><input type="number" name="walking_distance_station">分以内</td>
             </tr>
         </tbody>
     </table>

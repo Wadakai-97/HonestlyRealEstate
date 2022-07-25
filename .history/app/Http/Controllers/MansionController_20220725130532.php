@@ -80,8 +80,8 @@ class MansionController extends Controller
     // For Search
     public function adminSearch(Request $request) {
         $pref = $request->pref;
-        $municipalities = $request->municipalities ?? '';
-        $apartment_name = $request->apartment_name ?? '';
+        $municipalities = $request->municipalities;
+        $apartment_name = $request->apartment_name;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
         $lowest_occupation_area = $request->lowest_occupation_area;
@@ -108,7 +108,6 @@ class MansionController extends Controller
                             ->paginate(15);
 
         $request->session()->regenerateToken();
-
         return view('admin.mansion.result', compact('mansions', 'request'));
     }
 

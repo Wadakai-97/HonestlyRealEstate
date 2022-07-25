@@ -240,12 +240,12 @@ class Mansion extends Model
     }
     public function scopeWhereMunicipalities($query, $municioalities) {
         if(!empty($municipalities)) {
-            $query->where('municipalities', 'like',  '%' . addcslashes($municipalities, '%_\\') . '%');
+            $query->where('municipalities', '=', $municipalities);
         }
     }
     public function scopeWhereApartmentName($query, $apartment_name) {
         if(!empty($apartment_name)) {
-            $query->where('apartmnet_name', 'like',  '%' . addcslashes($apartment_name, '%_\\') . '%');
+            $query->where('apartmnet_name', '=', $apartment_name);
         }
     }
     public function scopeWhereLowestPrice($query, $lowest_price) {

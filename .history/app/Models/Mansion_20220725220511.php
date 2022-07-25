@@ -245,7 +245,7 @@ class Mansion extends Model
     }
     public function scopeWhereApartmentName($query, $apartment_name) {
         if(!empty($apartment_name)) {
-            $query->where('apartmnet_name', 'like',  '%' . addcslashes($apartment_name, '%_\\') . '%');
+            $query->where('apartmnet_name', 'like', "%{$apartment_name}%");
         }
     }
     public function scopeWhereLowestPrice($query, $lowest_price) {

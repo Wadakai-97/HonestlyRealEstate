@@ -30,9 +30,9 @@
             </tr>
             <tr>
                 <th><label>最低価格</label></th>
-                <td><input type="number" name="lowest_price">万円</td>
+                <td><input type="number" name="lowest_price"></td>
                 <th><label>最高価格</label></th>
-                <td><input type="number" name="highest_price">万円</td>
+                <td><input type="number" name="highest_price"></td>
                 <th><label>間取り</label></th>
                 <td>
                     <input type="number" name="number_of_rooms">
@@ -49,31 +49,6 @@
                 <td><input type="number" name="lowest_occupation_area">㎡</td>
                 <th><label>最高専有面積</label></th>
                 <td><input type="number" name="highest_occupation_area">㎡</td>
-                <th><label>築年数</label></th>
-                <td><input type="number" name="old">年以内</td>
-            </tr>
-            <tr>
-                <th>最寄り駅</th>
-                <td>
-                    <p>エリア</p>
-                    <select name="area" id="area">
-                        <option value="">選択してください。</option>
-                    </select>
-                    <p>都道府県</p>
-                    <select name="prefecture" id="prefecture">
-                        <option value="">エリアを選択してください。</option>
-                    </select>
-                    <p>路線</p>
-                    <select name="line" id="line">
-                        <option value="">都道府県を選択してください。</option>
-                    </select>
-                    <p>駅</p>
-                        <select name="station" id="station">
-                            <option value="">路線を選択してください。</option>
-                        </select>
-                </td>
-                <th>駅徒歩</th>
-                <td><input type="number" name="walking_distance_station">分以内</td>
             </tr>
         </tbody>
     </table>

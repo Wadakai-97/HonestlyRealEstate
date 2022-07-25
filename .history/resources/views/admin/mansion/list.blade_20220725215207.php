@@ -55,25 +55,31 @@
             <tr>
                 <th>最寄り駅</th>
                 <td>
-                    <p>エリア</p>
-                    <select name="area" id="area">
-                        <option value="">選択してください。</option>
-                    </select>
-                    <p>都道府県</p>
-                    <select name="prefecture" id="prefecture">
-                        <option value="">エリアを選択してください。</option>
-                    </select>
-                    <p>路線</p>
-                    <select name="line" id="line">
-                        <option value="">都道府県を選択してください。</option>
-                    </select>
-                    <p>駅</p>
-                        <select name="station" id="station">
-                            <option value="">路線を選択してください。</option>
+                        <p>エリア</p>
+                        <select name="area" id="area">
+                            <option value="">選択してください。</option>
                         </select>
+                    </div>
+                        <p>都道府県</p>
+                        <select name="prefecture" id="prefecture">
+                            <option value="">エリアを選択してください。</option>
+                        </select>
+                    </div>
+                        <p>路線</p>
+                        <select name="line" id="line">
+                            <option value="">都道府県を選択してください。</option>
+                        </select>
+                    </div>
+                        <p>駅</p>
+                        <div class="form-group @if(!empty($errors->first('station'))) has-error @endif">
+                            <select name="station" id="station">
+                                <option value="">路線を選択してください。</option>
+                            </select>
+                            <span class="help-block">{{$errors->first('station')}}</span>
+                        </div>
+                    </div>
+                    <input type="number" name="walking_distance_station">分以内
                 </td>
-                <th>駅徒歩</th>
-                <td><input type="number" name="walking_distance_station">分以内</td>
             </tr>
         </tbody>
     </table>

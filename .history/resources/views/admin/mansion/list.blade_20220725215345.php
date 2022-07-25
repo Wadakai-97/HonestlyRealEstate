@@ -71,9 +71,10 @@
                         <select name="station" id="station">
                             <option value="">路線を選択してください。</option>
                         </select>
+                    </td>
+                    <td<>
+                    <input type="number" name="walking_distance_station">分以内
                 </td>
-                <th>駅徒歩</th>
-                <td><input type="number" name="walking_distance_station">分以内</td>
             </tr>
         </tbody>
     </table>

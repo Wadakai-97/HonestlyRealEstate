@@ -80,36 +80,39 @@ class MansionController extends Controller
     // For Search
     public function adminSearch(Request $request) {
         $pref = $request->pref;
-        $municipalities = $request->municipalities ?? '';
-        $apartment_name = $request->apartment_name ?? '';
+        $municipalities = $request->municipalities;
+        $apartment_name = $request->apartment_name;
+        $number_of_rooms = $request->number_of_rooms;
+        $type_of_room = $request->type_of_room;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
-        $lowest_occupation_area = $request->lowest_occupation_area;
-        $highest_occupation_area = $request->highest_occupation_area;
-        $plan = $request->plan;
-        $type_of_room = $request->type_of_room;
-        $old = $request->old;
-        $station = $request->station;
-        $walking_distance_station = $request->walking_distance_station;
 
-        $mansions = Mansion::select('id', 'apartment_name', 'number_of_rooms', 'type_of_room', 'occupation_area', 'price', 'pref', 'municipaliteis')
-                            ->wherePref($pref)
-                            ->whereMunicipalities($municipalities)
-                            ->whereApartmentName($apartment_name)
-                            ->whereLowestPrice($lowest_price)
-                            ->whereHighestPrice($highest_price)
-                            ->whereLowestOccupationArea($lowest_occupation_area)
-                            ->whereHighestOccupationArea($highest_occupation_area)
-                            ->wherePlan($plan)
-                            ->whereTypeOfRoom($type_of_room)
-                            ->whereOld($old)
-                            ->whereStation($station)
-                            ->whereWalkingDistanceStation($walking_distance_station)
+        $mansions = Mansion::select('id', 'apartment_name', '')
                             ->paginate(15);
+        if(!empty($pref)) {
+            $query = $query->Where('pref', '=', $pref);
+        }
+        if(!empty($municipalities)) {
+            $query = $query->Where('municipalities', '=', $municipalities);
+        }
+        if(!empty($apartment_name)) {
+            $query = $query->Where('apartment_name', 'like', '%' . $apartment_name . '%');
+        }
+        if(!empty($number_of_rooms)) {
+            $query = $query->where('number_of_rooms', '=', $number_of_rooms);
+        }
+        if(!empty($type_of_room)) {
+            $query = $query->where('type_of_room', '=', $type_of_room);
+        }
+        if(!empty($lowest_price)) {
+            $query = $query->where('price', '>', $lowest_price);
+        }
+        if(!empty($highest_price)) {
+            $query = $query->where('price', '<', $highest_price);
+        }
 
         $request->session()->regenerateToken();
-
-        return view('admin.mansion.result', compact('mansions', 'request'));
+        return view('admin.mansion.result', compact('mansions', 'request', 'query'));
     }
 
     // For Delete

@@ -73,7 +73,7 @@
                         </select>
                 </td>
                 <th>駅徒歩</th>
-                <td><input type="number" name="walking_distance_station">分以内</td>
+                    <input type="number" name="walking_distance_station">分以内</td>
             </tr>
         </tbody>
     </table>

@@ -68,7 +68,7 @@ class MansionSignUpRequest extends FormRequest
             'terms_and_conditions' => ['nullable', 'max:200'],
             'image1' => ['nullable', 'file', 'mimes:jpg,jpeg', 'dimensions:width=480,height=240', 'max:1040'],
             'category1' => ['nullable', 'max:20', ],
-            'comment1' => ['nullable', 'max:120', ],
+            'comment1'
         ];
     }
 

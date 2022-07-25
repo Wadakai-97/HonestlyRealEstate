@@ -80,8 +80,8 @@ class MansionController extends Controller
     // For Search
     public function adminSearch(Request $request) {
         $pref = $request->pref;
-        $municipalities = $request->municipalities ?? '';
-        $apartment_name = $request->apartment_name ?? '';
+        $municipalities = $request->municipalities;
+        $apartment_name = $request->apartment_name;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
         $lowest_occupation_area = $request->lowest_occupation_area;
@@ -90,7 +90,7 @@ class MansionController extends Controller
         $type_of_room = $request->type_of_room;
         $old = $request->old;
         $station = $request->station;
-        $walking_distance_station = $request->walking_distance_station;
+        $walking_distance_station;
 
         $mansions = Mansion::select('id', 'apartment_name', 'number_of_rooms', 'type_of_room', 'occupation_area', 'price', 'pref', 'municipaliteis')
                             ->wherePref($pref)
@@ -101,14 +101,12 @@ class MansionController extends Controller
                             ->whereLowestOccupationArea($lowest_occupation_area)
                             ->whereHighestOccupationArea($highest_occupation_area)
                             ->wherePlan($plan)
-                            ->whereTypeOfRoom($type_of_room)
                             ->whereOld($old)
                             ->whereStation($station)
                             ->whereWalkingDistanceStation($walking_distance_station)
                             ->paginate(15);
 
         $request->session()->regenerateToken();
-
         return view('admin.mansion.result', compact('mansions', 'request'));
     }
 
