@@ -232,10 +232,8 @@ class Mansion extends Model
 
     // Scope
     public function scopeWherePref($query, $pref) {
-        if(!empty($pref)) {
-            for ($i = 0; $i < count($pref); $i++){
-                    $query->orwhere('pref', '=',  $pref[$i]);
-            }
+        for ($i = 0; $i < count($pref); $i++){
+                $query->orwhere('pref', '=',  $pref[$i]);
         }
     }
     public function scopeWhereLowestPrice($query, $lowest_price) {
@@ -271,12 +269,12 @@ class Mansion extends Model
             $query->where('year', '<=', $old);
         }
     }
-    public function scopeWhereStation($query, $station) {
+    public function scopeWhereStation($query, $request) {
         if(!empty($station)) {
             $query->where('station', '=', $station);
         }
     }
-    public function scopeWhereWalkingDistanceStation($query, $walking_distance_station) {
+    public function scopeWhereWalkingDistanceStation($query, $request) {
         if(!empty($walking_distance_station)) {
             $query->where('walking_distance_station', '<=', $walking_distance_station);
         }

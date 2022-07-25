@@ -239,9 +239,9 @@ class Mansion extends Model
         }
     }
     public function scopeWhereLowestPrice($query, $lowest_price) {
-        if(!empty($lowest_price)) {
+        // if(!empty($lowest_price)) {
             $query->where('price', '>=', $lowest_price);
-        }
+        // }
     }
     public function scopeWhereHighestPrice($query, $highest_price) {
         if(!empty($highest_price)) {

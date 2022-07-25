@@ -154,9 +154,9 @@ class NewDetachedHouseGroup extends Model
     public function scopeWherePref($query, $request) {
         $pref = $request->pref;
         if(!empty($pref)) {
-            for ($i = 0; $i < count($pref); $i++){
-                $query->orwhere('pref', '=',  $pref[$i]);
-            }
+                for ($i = 0; $i < count($pref); $i++){
+                    $query->where('pref', '=',  $pref[$i]);
+                }
         }
     }
     public function scopeWhereLowestPrice($query, $request) {
@@ -198,10 +198,12 @@ class NewDetachedHouseGroup extends Model
     public function scopeWherePlan($query, $request) {
         $plan = $request->plan;
         if(!empty($plan)) {
-            for ($i = 0; $i < count($plan); $i++){
-                $query->orwhere('lowest_number_of_rooms', '=',  $plan[$i])
-                    ->orwhere('highest_number_of_rooms', '=', $plan[$i]);
-            }
+            $query->Where(function ($request) use($plan) {
+                for ($i = 0; $i < count($plan); $i++){
+                    $query->where('lowest_number_of_rooms', '=',  $plan[$i])
+                        ->orwhere('highest_number_of_rooms', '=', $plan[$i]);
+                }
+            });
         }
     }
     public function scopeWhereStation($query, $request) {

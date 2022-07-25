@@ -232,10 +232,9 @@ class Mansion extends Model
 
     // Scope
     public function scopeWherePref($query, $pref) {
-        if(!empty($pref)) {
-            for ($i = 0; $i < count($pref); $i++){
-                    $query->orwhere('pref', '=',  $pref[$i]);
-            }
+        if(!empty($))
+        for ($i = 0; $i < count($pref); $i++){
+                $query->orwhere('pref', '=',  $pref[$i]);
         }
     }
     public function scopeWhereLowestPrice($query, $lowest_price) {

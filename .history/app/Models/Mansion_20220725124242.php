@@ -232,51 +232,57 @@ class Mansion extends Model
 
     // Scope
     public function scopeWherePref($query, $pref) {
-        if(!empty($pref)) {
             for ($i = 0; $i < count($pref); $i++){
                     $query->orwhere('pref', '=',  $pref[$i]);
             }
         }
     }
-    public function scopeWhereLowestPrice($query, $lowest_price) {
+    public function scopeWhereLowestPrice($query, $request) {
         if(!empty($lowest_price)) {
             $query->where('price', '>=', $lowest_price);
         }
     }
-    public function scopeWhereHighestPrice($query, $highest_price) {
+    public function scopeWhereHighestPrice($query, $request) {
+        $highest_price = $request->highest_price;
         if(!empty($highest_price)) {
             $query->where('price', '<=', $highest_price);
         }
     }
-    public function scopeWhereLowestOccupationArea($query, $lowest_occupation_area) {
+    public function scopeWhereLowestOccupationArea($query, $request) {
+        $lowest_occupation_area = $request->lowest_occupation_area;
         if(!empty($lowest_occupation_area)) {
             $query->where('occupation_area', '>=', $lowest_occupation_area);
         }
     }
-    public function scopeWhereHighestOccupationArea($query, $hihghest_occupation_area) {
+    public function scopeWhereHighestOccupationArea($query, $request) {
+        $highest_occupation_area = $request->highest_occupation_area;
         if(!empty($highest_occupation_area)) {
             $query->where('occupation_area', '<=', $highest_occupation_area);
         }
     }
-    public function scopeWherePlan($query, $plan) {
+    public function scopeWherePlan($query, $request) {
+        $plan = $request->plan;
         if(!empty($plan)) {
             for ($i = 0; $i < count($plan); $i++){
                 $query->orwhere('number_of_rooms', '=',  $plan[$i]);
             }
         }
     }
-    public function scopeWhereOld($query, $old) {
+    public function scopeWhereOld($query, $request) {
+        $years_ago = $request->old;
         if(!empty($years_ago)) {
             $old = Carbon::today()->subYear($years_ago);
             $query->where('year', '<=', $old);
         }
     }
-    public function scopeWhereStation($query, $station) {
+    public function scopeWhereStation($query, $request) {
+        $station = $request->station;
         if(!empty($station)) {
             $query->where('station', '=', $station);
         }
     }
-    public function scopeWhereWalkingDistanceStation($query, $walking_distance_station) {
+    public function scopeWhereWalkingDistanceStation($query, $request) {
+        $walking_distance_station = $request->walking_distance_station;
         if(!empty($walking_distance_station)) {
             $query->where('walking_distance_station', '<=', $walking_distance_station);
         }

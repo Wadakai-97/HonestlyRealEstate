@@ -21,7 +21,7 @@ class MansionController extends Controller
         $pref = $request->pref;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
-        $lowest_occupation_area = $request->lowest_occupation_area;
+        $lowest_ccupation_area = $request->lowest_occupation_area;
         $highest_occupation_area = $request->highest_occupation_area;
         $plan = $request->plan;
         $old = $request->old;

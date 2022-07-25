@@ -21,12 +21,8 @@ class MansionController extends Controller
         $pref = $request->pref;
         $lowest_price = $request->lowest_price;
         $highest_price = $request->highest_price;
-        $lowest_occupation_area = $request->lowest_occupation_area;
+        $lowest_ccupation_area = $request->lowest_occupation_area;
         $highest_occupation_area = $request->highest_occupation_area;
-        $plan = $request->plan;
-        $old = $request->old;
-        $station = $request->station;
-        $walking_distance_station = $request->walking_distance_station;
 
         $mansions = Mansion::select('id', 'apartment_name', 'pref', 'municipalities', 'price', 'occupation_area', 'number_of_rooms', 'type_of_room', 'floor', 'story', 'year', 'station', 'walking_distance_station', 'updated_at')
                             ->wherePref($pref)
@@ -36,8 +32,8 @@ class MansionController extends Controller
                             ->whereHighestOccupationArea($highest_occupation_area)
                             ->wherePlan($plan)
                             ->whereOld($old)
-                            ->whereStation($station)
-                            ->whereWalkingDistanceStation($walking_distance_station)
+                            ->whereStation()
+                            ->whereWalkingDistanceStation()
                             ->paginate(15);
         $today = Carbon::today()->year;
         return view('user.mansion.result', compact('today', 'mansions', 'request'));
