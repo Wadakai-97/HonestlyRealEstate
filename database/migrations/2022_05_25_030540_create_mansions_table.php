@@ -22,8 +22,8 @@ class CreateMansionsTable extends Migration
             $table->string('pref');
             $table->string('municipalities');
             $table->string('block')->nullable();
-            $table->integer('land_area');
-            $table->string('building_area');
+            $table->integer('land_area')->nullable();
+            $table->string('building_area')->nullable();
             $table->integer('number_of_rooms');
             $table->string('type_of_room');
             $table->string('measuring_method');

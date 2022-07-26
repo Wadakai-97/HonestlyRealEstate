@@ -81,11 +81,11 @@
                 </td>
             </tr>
             <tr>
-                <th  class="required">土地面積</th>
+                <th>土地面積</th>
                 <td>
                     <input type="number" name="land_area" value="{{ old('land_area') }}">㎡
                 </td>
-                <th  class="required">建物面積</th>
+                <th>建物面積</th>
                 <td>
                     <input type="number" name="building_area" value="{{ old('building_area') }}">㎡
                 </td>
@@ -125,7 +125,7 @@
                 </td>
             </tr>
             <tr>
-                <th  class="required">方角</th>
+                <th>方角</th>
                 <td>
                     <div class="form-group @if(!empty($errors->first('direction'))) has-error @endif">
                         <select name="direction">
@@ -371,12 +371,6 @@
                 <th>中学校</th>
                 <td colspan=3>
                     <input type="text" placeholder="〇〇中学校" name="junior_high_school_name" value="{{ old('junior_high_school_name') }}">まで徒歩</th><input type="number" name="junior_high_school_district" value="{{ old('junior_high_school_district') }}">分
-                </td>
-            </tr>
-            <tr>
-                <th>物件画像（複数可能）</th>
-                <td colspan=3>
-                    <input type="file" name="files[][image]" multiple>
                 </td>
             </tr>
         </tbody>

@@ -200,7 +200,7 @@ class NewDetachedHouseGroup extends Model
         if(!empty($plan)) {
             for ($i = 0; $i < count($plan); $i++){
                 $query->orwhere('lowest_number_of_rooms', '=',  $plan[$i])
-                        ->orwhere('highest_number_of_rooms', '=', $plan[$i]);
+                    ->orwhere('highest_number_of_rooms', '=', $plan[$i]);
             }
         }
     }

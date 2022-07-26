@@ -352,10 +352,6 @@
                     <input type="text" placeholder="〇〇中学校" name="junior_high_school_name" value="{{ old('junior_high_school_name', $land->junior_high_school_name) }}">まで徒歩</th><input type="number" name="junior_high_school_district" value="{{ old('junior_high_school_district', $land->junior_high_school_district) }}">分
                 </td>
             </tr>
-                <th>物件画像（複数可能）</th>
-                <td colspan=3>
-                    <input type="file" name="files[][image]" multiple>
-                </td>
         </tbody>
     </table><br>
 
