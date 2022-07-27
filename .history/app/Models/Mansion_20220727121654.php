@@ -114,8 +114,8 @@ class Mansion extends Model
             ]);
             $mansion->save();
 
-            $image_counter = 1;
             for($i=1; $i<21; $i++) {
+                $image_counter = 1;
                 if(!empty($request->file('image' . $i))) {
                     $extension = $request->file('image' . $i)->guessExtension();
                     $file_name = "No{$mansion->id}_{$image_counter}.{$extension}";
