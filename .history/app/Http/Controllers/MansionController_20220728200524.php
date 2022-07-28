@@ -87,7 +87,7 @@ class MansionController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('admin.mansion.form')->with('message', '登録が完了しました。');
     }
-    public function mansionImageSignUp($id, MansionImageSignUpRequest $request) {
+    public function mansionImageSignUp($id, Request $request) {
         $mansion_image = new MansionImage;
         $mansion_image->mansionImageSignUp($id, $request);
         $mansion = Mansion::find($id);
