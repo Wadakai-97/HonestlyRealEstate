@@ -115,7 +115,7 @@ Route::prefix('old_detached_house')->group(function() {
 // マンション
 Route::prefix('mansion')->group(function() {
     Route::get('sign_up', 'MansionController@showForm')->name('admin.mansion.form');
-    Route::post('sign_up', 'MansionController@signUp')->name('admin.mansion.signUp');
+    Route::post('sign_up', 'MansionController@s ignUp')->name('admin.mansion.signUp');
     Route::get('list', 'MansionController@list')->name('admin.mansion.list');
     Route::get('narrow/down', 'MansionController@adminSearch')->name('admin.mansion.search');
     Route::post('narrow/down', 'MansionController@adminSearch')->name('admin.mansion.search');
@@ -124,8 +124,7 @@ Route::prefix('mansion')->group(function() {
     Route::get('edit/{id}', 'MansionController@edit')->name('admin.mansion.edit');
     Route::get('edit/image/{id}', 'MansionController@imageEdit')->name('admin.mansionImage.edit');
     Route::post('edit/image/{id}', 'MansionController@imageUpdate')->name('admin.mansionImage.update');
-    Route::post('edit/image/update/{id}', 'MansionController@imageSignUp')->name('admin.mansionImage.signUp');
-    Route::delete('delete/image/{id}', 'MansionController@imageDelete')->name('admin.mansionImage.delete');
+    Route::post('sign_up/image/{id}', 'MansionController@imageSignUp')->name('admin.mansionImage.signUp');
     Route::patch('edit/{id}', 'MansionController@update')->name('admin.mansion.update');
     Route::get('csv', 'MansionController@csvDownload')->name('admin.mansion.csv');
 });

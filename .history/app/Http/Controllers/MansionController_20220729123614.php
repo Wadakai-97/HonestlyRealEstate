@@ -89,7 +89,7 @@ class MansionController extends Controller
     }
     public function imageSignUp($id, MansionImageSignUpRequest $request) {
         $mansion_image = new MansionImage;
-        $mansion_image->imageSignUp($id, $request);
+        $mansion_image->mansionImageSignUp($id, $request);
         $mansion = Mansion::find($id);
         $mansion_images = MansionImage::where('mansion_id', '=', $id)->get();
         $existing_images = MansionImage::where('mansion_id', '=', $id)->count();
@@ -150,14 +150,6 @@ class MansionController extends Controller
             $mansion->delete();
         });
     }
-    public function imageDelete($id) {
-        DB::transaction(function() use($id) {
-            $mansion_image = MansionImage::find($id);
-            Storage::delete('mansion_images/' . $mansion_image->path);
-            $mansion_image->delete();
-        });
-    }
-
     // For Detail
     public function showDetail($id) {
         $mansion = Mansion::find($id);

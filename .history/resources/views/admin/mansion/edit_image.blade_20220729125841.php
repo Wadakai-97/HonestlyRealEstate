@@ -32,7 +32,7 @@
 
                             <p>画像{{ $image_counter++ }}</p>
                             @if(empty($mansion_image->path))
-                            <p>これはif_empty_mansion_image->pathが作動している証拠です。</p>
+                                <p>これはif_empty_mansion_image->pathが作動している証拠です。</p>
                                 <img src="{{ asset('/storage/mansion_images/no_image.jpeg') }}" id="noImage{{ $image_counter }}" class="no_image" alt="物件画像{{ $image_counter }}">
                                 <div id="{{ $image_counter }}"></div>
                                 <div class="form-group @if(!empty($errors->first("image" . $image_counter))) has-error @endif">

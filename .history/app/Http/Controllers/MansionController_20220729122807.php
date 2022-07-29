@@ -81,7 +81,7 @@ class MansionController extends Controller
     }
 
     // SignUP
-    public function signUp(MansionSignUpRequest $request) {
+    public function mansionSignUp(MansionSignUpRequest $request) {
         $mansion = new Mansion;
         $mansion->mansionSignUp($request);
         $request->session()->regenerateToken();
@@ -89,7 +89,7 @@ class MansionController extends Controller
     }
     public function imageSignUp($id, MansionImageSignUpRequest $request) {
         $mansion_image = new MansionImage;
-        $mansion_image->imageSignUp($id, $request);
+        $mansion_image->mansionImageSignUp($id, $request);
         $mansion = Mansion::find($id);
         $mansion_images = MansionImage::where('mansion_id', '=', $id)->get();
         $existing_images = MansionImage::where('mansion_id', '=', $id)->count();
@@ -135,6 +135,7 @@ class MansionController extends Controller
 
         return view('admin.mansion.result', compact('mansions', 'request'));
     }
+
     // For Delete
     public function delete($id) {
         DB::transaction(function() use($id) {
@@ -148,13 +149,6 @@ class MansionController extends Controller
             }
             $mansion = Mansion::find($id);
             $mansion->delete();
-        });
-    }
-    public function imageDelete($id) {
-        DB::transaction(function() use($id) {
-            $mansion_image = MansionImage::find($id);
-            Storage::delete('mansion_images/' . $mansion_image->path);
-            $mansion_image->delete();
         });
     }
 
@@ -173,8 +167,8 @@ class MansionController extends Controller
     }
     public function imageUpdate($id, Request $request) {
         $mansion_image = MansionImage::find($id);
-        $mansion_image->imageUpdate($id, $request);
-        $mansion = Mansion::find($mansion_image->mansion_id);
+        $mansion_image->mansionImageUpdate($id, $request);
+        $mansion = Mansion::find($request->mansion_id);
         $mansion_images = MansionImage::where('mansion_id', '=', $id)->get();
         $existing_images = MansionImage::where('mansion_id', '=', $id)->count();
         if(!empty($existing_images)) {
@@ -185,6 +179,7 @@ class MansionController extends Controller
         $request->session()->regenerateToken();
         return view('admin.mansion.edit_image', compact('mansion', 'image_counter', 'mansion_images', 'id'))->with('message', '変更内容を登録しました。');
     }
+
     // For CSV Download
     public function csvDownload() {
         $mansions = Mansion::get();

@@ -410,18 +410,12 @@ function resetImage() {
     document.getElementById('preview').src = ''
 }
 
-// 物件画像
-// 新規登録・画像リセット
+// 物件画像：新規登録・画像リセット
 function resetPropertyImage(target) {
     var reset_image = document.getElementById("preview_property_image-" + target);
     var input_image = document.getElementById("inputImage" + target);
     reset_image.setAttribute("src", "/public/storage/mansion_images/no_image.jpeg");
     input_image.value = "";
-}
-//アップデート・画像リセット
-function deletePropertyImage(target) {
-    var reset_image = document.getElementById("showImage" + target);
-    reset_image.setAttribute("src", "/public/storage/mansion_images/no_image.jpeg");
 }
 // 入力画像プレビュー
 function previewPropertyImage(event, target) {

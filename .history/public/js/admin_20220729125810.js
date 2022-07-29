@@ -422,6 +422,7 @@ function resetPropertyImage(target) {
 function deletePropertyImage(target) {
     var reset_image = document.getElementById("showImage" + target);
     reset_image.setAttribute("src", "/public/storage/mansion_images/no_image.jpeg");
+    input_image.value = "";
 }
 // 入力画像プレビュー
 function previewPropertyImage(event, target) {

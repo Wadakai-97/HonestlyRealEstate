@@ -52,7 +52,7 @@ class MansionImage extends Model
         });
     }
 
-    public function imageUpdate($id, $request) {
+    public function mansionImageUpdate($id, $request) {
         DB::transaction(function() use ($id, $request) {
             $mansion_image = MansionImage::find($id);
             if(!empty($request->file('image')) && $mansnion_image->path != $request->file('image')) {

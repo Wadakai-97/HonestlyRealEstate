@@ -125,7 +125,7 @@ Route::prefix('mansion')->group(function() {
     Route::get('edit/image/{id}', 'MansionController@imageEdit')->name('admin.mansionImage.edit');
     Route::post('edit/image/{id}', 'MansionController@imageUpdate')->name('admin.mansionImage.update');
     Route::post('edit/image/update/{id}', 'MansionController@imageSignUp')->name('admin.mansionImage.signUp');
-    Route::delete('delete/image/{id}', 'MansionController@imageDelete')->name('admin.mansionImage.delete');
+    Route::delete('delete/{id}', 'MansionController@delete')->name('admin.mansion.delete');
     Route::patch('edit/{id}', 'MansionController@update')->name('admin.mansion.update');
     Route::get('csv', 'MansionController@csvDownload')->name('admin.mansion.csv');
 });

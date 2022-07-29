@@ -44,7 +44,7 @@
                                     <img src="{{ asset('/storage/mansion_images/' . $mansion_image->path) }}" id="showImage{{ $image_counter }}" class="show_image" alt="物件画像{{ $image_counter }}">
                                 </div>
                                 <input type="hidden" id="imageCounter" value="{{ $image_counter }}">
-                                <input type="submit" id="mansionImageDelete" onclick="deletePropertyImage({{ $image_counter }})" value="画像削除">
+                                <input type="submit" id="mansionImageDelete" onclick="deletePropertyImage()" value="画像削除">
                             @endif
 
                             <p>分類</p>

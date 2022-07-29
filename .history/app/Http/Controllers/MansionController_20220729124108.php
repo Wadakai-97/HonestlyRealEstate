@@ -150,11 +150,18 @@ class MansionController extends Controller
             $mansion->delete();
         });
     }
-    public function imageDelete($id) {
+    public function delete($id) {
         DB::transaction(function() use($id) {
-            $mansion_image = MansionImage::find($id);
-            Storage::delete('mansion_images/' . $mansion_image->path);
-            $mansion_image->delete();
+            $mansion_images = MansionImage::where('mansion_id', '=', $id)->get();
+            if(!empty($mansion_images)) {
+                foreach ($mansion_images as $mansion_image) {
+                    Storage::delete('mansion_images/' . $mansion_image->path);
+                    $mansion_image->delete();
+                }
+                $mansion_images->delete();
+            }
+            $mansion = Mansion::find($id);
+            $mansion->delete();
         });
     }
 
