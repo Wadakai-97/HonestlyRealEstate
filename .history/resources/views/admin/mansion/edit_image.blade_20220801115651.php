@@ -24,7 +24,7 @@
     </thead>
     <tbody>
         <tr class="property_images">
-            @while ($image_counter < 21)
+            @while ($image_counter < 20)
                 @foreach($mansion_images as $mansion_image)
                     <td class="property_images_block">
                         <form method="post" action="{{ route('admin.mansionImage.update', ['id' => $mansion_image->id]) }}" enctype="multipart/form-data">

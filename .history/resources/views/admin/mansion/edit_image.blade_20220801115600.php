@@ -24,10 +24,11 @@
     </thead>
     <tbody>
         <tr class="property_images">
-            @while ($image_counter < 21)
+            @while ($image_counter < 20)
                 @foreach($mansion_images as $mansion_image)
                     <td class="property_images_block">
                         <form method="post" action="{{ route('admin.mansionImage.update', ['id' => $mansion_image->id]) }}" enctype="multipart/form-data">
+                            <input type="hidden" value="{{ $image_counter++ }}">
                             @csrf
                             <p>画像{{ $image_counter }}</p>
                             <div id="signUpForm{{ $image_counter }}">
@@ -58,13 +59,13 @@
                         <form action="{{ route('admin.mansionImage.delete', ['id' => $mansion_image->id]) }}">
                             <input type="submit" value="すべて削除">
                         </form>
-                        <input type="hidden" value="{{ $image_counter++ }}">
                     </td>
                 @endforeach
 
-                @while($image_counter < 21)
+                @while($image_counter = 20)
                     <td class="property_images_block">
                         <form method="post" action="{{ route('admin.mansionImage.signUp', ['id' => $mansion->id]) }}" enctype="multipart/form-data">
+                            <input type="hidden" value="{{ $image_counter++ }}">
                             @csrf
                             <p>画像{{ $image_counter }}</p>
                             <img src="{{ asset('/storage/property_images/mansion/no_image.jpeg') }}" id="noImage{{ $image_counter }}" class="no_image" alt="プレビュー画像{{ $image_counter }}">
@@ -93,7 +94,6 @@
                             </div>
 
                             <input type="submit" value="登録">
-                            <input type="hidden" value="{{ $image_counter++ }}">
                         </form>
                     </td>
                 @endwhile

@@ -25,10 +25,11 @@
     <tbody>
         <tr class="property_images">
             @while ($image_counter < 21)
-                @foreach($mansion_images as $mansion_image)
+                @forelse($mansion_images as $mansion_image)
                     <td class="property_images_block">
                         <form method="post" action="{{ route('admin.mansionImage.update', ['id' => $mansion_image->id]) }}" enctype="multipart/form-data">
                             @csrf
+
                             <p>画像{{ $image_counter }}</p>
                             <div id="signUpForm{{ $image_counter }}">
                                 <img src="{{ asset('/storage/property_images/mansion/' . $mansion_image->path) }}" id="showImage{{ $image_counter }}" class="show_image" alt="物件画像{{ $image_counter }}"><br>
@@ -60,13 +61,13 @@
                         </form>
                         <input type="hidden" value="{{ $image_counter++ }}">
                     </td>
-                @endforeach
+                @endforelse
 
                 @while($image_counter < 21)
                     <td class="property_images_block">
                         <form method="post" action="{{ route('admin.mansionImage.signUp', ['id' => $mansion->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            <p>画像{{ $image_counter }}</p>
+                            <p>画像{{ $image_counter++ }}</p>
                             <img src="{{ asset('/storage/property_images/mansion/no_image.jpeg') }}" id="noImage{{ $image_counter }}" class="no_image" alt="プレビュー画像{{ $image_counter }}">
                             <div id="{{ $image_counter }}"></div>
                             <div class="form-group @if(!empty($errors->first("image" . $image_counter))) has-error @endif">
@@ -93,8 +94,8 @@
                             </div>
 
                             <input type="submit" value="登録">
-                            <input type="hidden" value="{{ $image_counter++ }}">
                         </form>
+                        <input type="hidden" value="{{ $image_counter++ }}">
                     </td>
                 @endwhile
             @endwhile
