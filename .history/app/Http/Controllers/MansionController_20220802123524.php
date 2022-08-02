@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Mansion;
 use App\Models\MansionImage;
-use App\Models\MansionAccess;
 use App\Http\Requests\MansionSearchRequest;
 use App\Http\Requests\MansionSignUpRequest;
 use App\Http\Requests\MansionImageSignUpRequest;
@@ -53,7 +52,7 @@ class MansionController extends Controller
         $today = Carbon::today();
         $rollover_date = $today->addDays(14);
 
-        if(is_null($this->updated_at) || now()->diffInDays($this->updated_at) >= 3) {
+        if(is_null($this->recommendation_updated_at) || now()->diffInDays($this->recommendation_updated_at) >= 3) {
             $id = $this->id;
             $ip_addresses = $this->accesses->pluck('ip');
 
@@ -62,14 +61,14 @@ class MansionController extends Controller
                                     ->get();
 
             $access_counts = $mansions->groupBy('mansion_id')
-                                        ->map(function($mansions) {
+                                        ->map(function($mansions){
                                             return $mansions->count();
                                         })
-                                        ->filter(function($mansion_count) {
+                                        ->filter(function($mansion_count){
                                             return ($mansion_count >= 3);
                                         })
                                         ->sortDesc();
-            $this->similar_mansions()->delete();
+            $this->recommendations()->delete();
 
             foreach($access_counts as $mansion_id => $access_count) {
                 $similar_mansion = new SimilarMansion;
@@ -79,7 +78,7 @@ class MansionController extends Controller
                 $similar_mansion->save();
             }
 
-            $this->updated_at = now();
+            $this->recommendation_updated_at = now();
             $this->save();
         }
 

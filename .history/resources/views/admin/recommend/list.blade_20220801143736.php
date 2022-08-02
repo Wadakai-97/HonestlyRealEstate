@@ -3,7 +3,7 @@
 @section('body')
 <h2>おすすめ物件一覧</h2><br>
 
-    @if(!empty($lands->land_id))
+    @if(!empty($lands))
     <h3>土地</h3>
         <table class="list">
             <colgroup>
@@ -25,7 +25,7 @@
             <tbody>
                 @forelse($lands as $land)
                 <tr>
-                    <td>{{ $land->land->name }}</td>
+                    <td>{{ $land->name }}</td>
                     <td>{{ $land->land->land_area }}㎡</td>
                     <td>{{ $land->land->price }}</td>
                     <td>{{ $land->land->pref }}{{ $land->land->municipalities }}{{ $land->land->block }}</td>

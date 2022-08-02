@@ -69,7 +69,7 @@ class MansionController extends Controller
                                             return ($mansion_count >= 3);
                                         })
                                         ->sortDesc();
-            $this->similar_mansions()->delete();
+            $this->recommendations()->delete();
 
             foreach($access_counts as $mansion_id => $access_count) {
                 $similar_mansion = new SimilarMansion;

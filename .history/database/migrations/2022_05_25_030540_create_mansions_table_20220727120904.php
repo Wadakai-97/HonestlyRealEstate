@@ -58,7 +58,6 @@ class CreateMansionsTable extends Migration
             $table->string('conditions_of_transactions');
             $table->text('property_introduction')->nullable();
             $table->text('sales_comment')->nullable();
-            $table->dateTime('similar_updated_at')->nullable()->comment('類似物件を更新した日時');
             $table->timestamps();
         });
     }

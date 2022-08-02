@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Mansion;
 use App\Models\MansionImage;
-use App\Models\MansionAccess;
 use App\Http\Requests\MansionSearchRequest;
 use App\Http\Requests\MansionSignUpRequest;
 use App\Http\Requests\MansionImageSignUpRequest;
@@ -52,37 +51,6 @@ class MansionController extends Controller
         $mansion = Mansion::find($id);
         $today = Carbon::today();
         $rollover_date = $today->addDays(14);
-
-        if(is_null($this->updated_at) || now()->diffInDays($this->updated_at) >= 3) {
-            $id = $this->id;
-            $ip_addresses = $this->accesses->pluck('ip');
-
-            $mansions = MansionAccess::whereIn('ip', $ip_addresses)
-                                    ->where('mansion_id', '!=', $id)
-                                    ->get();
-
-            $access_counts = $mansions->groupBy('mansion_id')
-                                        ->map(function($mansions) {
-                                            return $mansions->count();
-                                        })
-                                        ->filter(function($mansion_count) {
-                                            return ($mansion_count >= 3);
-                                        })
-                                        ->sortDesc();
-            $this->similar_mansions()->delete();
-
-            foreach($access_counts as $mansion_id => $access_count) {
-                $similar_mansion = new SimilarMansion;
-                $similar_mansion->original_mansion_id = $id;
-                $similar_mansion->mansion_id = $mansion_id;
-                $similar_mansion->access_count = $access_count;
-                $similar_mansion->save();
-            }
-
-            $this->updated_at = now();
-            $this->save();
-        }
-
         return view('user.mansion.detail', compact('mansion', 'today', 'rollover_date'));
     }
 

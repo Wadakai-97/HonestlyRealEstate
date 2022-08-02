@@ -3,7 +3,7 @@
 @section('body')
 <h2>おすすめ物件一覧</h2><br>
 
-    @if(!empty($lands->land_id))
+    @if($lands->inNotEmpty())
     <h3>土地</h3>
         <table class="list">
             <colgroup>
@@ -37,7 +37,7 @@
         </table>
     @endif
 
-    @if(!empty($mansions))
+    @if($mansions))
     <h3>マンション</h3>
         <table class="list">
             <colgroup>

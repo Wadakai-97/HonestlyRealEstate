@@ -37,7 +37,7 @@
         </table>
     @endif
 
-    @if(!empty($mansions))
+    @if(!empty($mansions->mansion_id))
     <h3>マンション</h3>
         <table class="list">
             <colgroup>

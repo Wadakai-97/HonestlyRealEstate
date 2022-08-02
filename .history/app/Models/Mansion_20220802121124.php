@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\MyList;
 use App\Models\Recommend;
-use App\Models\MansionAccess;
 use App\Models\MansionImage;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Support\Facades\DB;

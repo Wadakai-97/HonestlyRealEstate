@@ -58,18 +58,18 @@ class MansionController extends Controller
             $ip_addresses = $this->accesses->pluck('ip');
 
             $mansions = MansionAccess::whereIn('ip', $ip_addresses)
-                                    ->where('mansion_id', '!=', $id)
-                                    ->get();
+                                        ->where('mansion_id', '!=', $id)
+                                        ->get();
 
             $access_counts = $mansions->groupBy('mansion_id')
-                                        ->map(function($mansions) {
+                                        ->map(function($mansions){
                                             return $mansions->count();
                                         })
-                                        ->filter(function($mansion_count) {
+                                        ->filter(function($mansion_count){
                                             return ($mansion_count >= 3);
                                         })
                                         ->sortDesc();
-            $this->similar_mansions()->delete();
+            $this->recommendations()->delete();
 
             foreach($access_counts as $mansion_id => $access_count) {
                 $similar_mansion = new SimilarMansion;
