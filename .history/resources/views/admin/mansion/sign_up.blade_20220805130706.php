@@ -420,7 +420,7 @@
                     <td class="property_images_block">
                         <p>画像{{ $i }}</p>
                         <input type="hidden" name="mansion_id" value="">
-                        <img src="{{ asset('/storage/property_images/mansion/no_image.jpeg') }}" id="noImage{{ $i }}" class="no_image" alt="プレビュー画像{{ $i }}">
+                        <img src="{{ asset('/storage/propertyimages/no_image.jpeg') }}" id="noImage{{ $i }}" class="no_image" alt="プレビュー画像{{ $i }}">
                         <div id="{{ $i }}"></div>
                         <div class="form-group @if(!empty($errors->first("image" . $i))) has-error @endif">
                             <input type="file" name="image{{ $i }}" id="inputImage{{ $i }}" onchange="previewPropertyImage(event, {{ $i }})">

@@ -420,48 +420,6 @@
         </tbody>
     </table>
 
-    <table class="photo_edit_table">
-        <thead>
-            <tr>
-                <th class="table_top">物件画像</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="property_images">
-                @for($i = 1; $i < 21; $i++)
-                    <td class="property_images_block">
-                        <p>画像{{ $i }}</p>
-                        <input type="hidden" name="mansion_id" value="">
-                        <img src="{{ asset('/storage/property_images/mansion/no_image.jpeg') }}" id="noImage{{ $i }}" class="no_image" alt="プレビュー画像{{ $i }}">
-                        <div id="{{ $i }}"></div>
-                        <div class="form-group @if(!empty($errors->first("image" . $i))) has-error @endif">
-                            <input type="file" name="image{{ $i }}" id="inputImage{{ $i }}" onchange="previewPropertyImage(event, {{ $i }})">
-                            <span class="help-block">{{$errors->first("image" . $i )}}</span>
-                        </div><br>
-                        <input type="button" onclick="resetPropertyImage({{ $i }})" value="削除"><br>
-
-                        <p>分類</p>
-                        <div class="form-group @if(!empty($errors->first( "category" . $i))) has-error @endif">
-                            <select name="category{{ $i }}">
-                                <option disabled selected>未選択</option>
-                                @foreach (PropertyInformationConsts::MANSION_IMAGES_CATEGORY_LIST as $key => $category)
-                                <option value="{{ $key }}" @if(old('category') === $category) selected @endif>{{ $category }}</option>
-                                @endforeach
-                            </select>
-                            <span class="help-block">{{$errors->first("category" . $i)}}</span>
-                        </div>
-
-                        <p>コメント</p>
-                        <div class="form-group @if(!empty($errors->first( "comment" . $i ))) has-error @endif">
-                            <textarea name="comment{{ $i }}" cols="150" rows="5">{{ old('comment' . $i) }}</textarea>
-                            <span class="help-block">{{$errors->first( "comment" . $i )}}</span>
-                        </div><br>
-                    </td>
-                @endfor
-            </tr>
-        </tbody>
-    </table>
-
     <input type="submit" value="登録する" class="sign_up_btn" >
 </form>
 @endsection

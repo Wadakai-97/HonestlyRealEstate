@@ -462,6 +462,7 @@
         </tbody>
     </table>
 
+
     <input type="submit" value="登録する" class="sign_up_btn" >
 </form>
 @endsection
