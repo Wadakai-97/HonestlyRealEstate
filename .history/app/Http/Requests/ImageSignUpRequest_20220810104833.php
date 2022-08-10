@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ImageSignUpRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
+    }
+
+    public function messages() {
+        return [
+            'image.mimes:jpg,jpeg' => 'ファイル形式はjpg/jpegのみ登録可能です。',
+            'image.max:1024' => '画像は10MB以内まで登録可能です。',
+            'image.dimensions' => '画像は横幅100px〜400px/縦幅100px〜400px以内にて登録可能です。',
+            'category.max:20' => '分類は正しく選択してください。',
+            'comment.max:120' => 'コメントは120文字以内にて入力してください。'
+        ];
+    }
+}
