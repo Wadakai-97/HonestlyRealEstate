@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class DetachedHouseSearchRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
+    }
+    
+    protected function validateMin($attribute, $value, $parameters)
+    {
+        if (!is_numeric($parameters[0]) &&
+            !is_null($val = $this->getValue($parameters[0])))
+        {
+            $parameters[0] = $val;
+        }
+
+        return parent::validateMin($attribute, $value, $parameters);
+    }
+    protected function validateMax($attribute, $value, $parameters)
+    {
+        if (!is_numeric($parameters[0]) &&
+            !is_null($val = $this->getValue($parameters[0])))
+        {
+            $parameters[0] = $val;
+        }
+
+        return parent::validateMax($attribute, $value, $parameters);
+    }
+}
