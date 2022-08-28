@@ -150,12 +150,15 @@ class NewDetachedHouseController extends Controller
     }
     // For Recommend
     public function recommendSignUp($id) {
+        $new_detached_house = NewDetachedHouse::find($id);
+        $new_detached_house->recommend($id);
+
         if(DB::table('recommends')->where('new_detached_house_id', $id)->exists()) {
             $message = 'errorMessage';
             $flash_message = "この物件は既におすすめ登録されています。";
         } else {
-            $new_detached_house = NewDetachedHouse::find($id);
-            $new_detached_house->recommend($id);
+            $mansion = Mansion::find($id);
+            $mansion->recommend($id);
             $message = 'successMessage';
             $flash_message = "おすすめ登録に成功しました。";
         }
@@ -268,17 +271,9 @@ class NewDetachedHouseController extends Controller
         return view('admin.new_detached_house_group.list', compact('new_detached_house_groups'));
     }
     public function recommendGroupSignUp($id) {
-        if(DB::table('recommends')->where('new_detached_house_group_id', $id)->exists()) {
-            $message = 'errorMessage';
-            $flash_message = "この物件は既におすすめ登録されています。";
-        } else {
-            $new_detached_house_group = NewDetachedHouseGroup::find($id);
-            $new_detached_house_group->recommend($id);
-            $message = 'successMessage';
-            $flash_message = "おすすめ登録に成功しました。";
-        }
-
-        return redirect()->route('admin.newDetachedHouseGroup.list')->with($message, $flash_message);
+        $new_detached_house_group = NewDetachedHouseGroup::find($id);
+        $new_detached_house_group->recommend($id);
+        return redirect()->route('admin.newDetachedHouseGroup.list')->with('message', 'お気に入り登録が完了しました。');
     }
     public function recommendGroupDelete($id) {
         $recommend_new_detached_house_group = Recommend::where('new_detached_house_group_id', $id)->get();

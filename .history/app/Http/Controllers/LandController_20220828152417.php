@@ -152,17 +152,12 @@ class LandController extends Controller
 
     // Recommend
     public function recommendSignUp($id) {
-        if(DB::table('recommends')->where('land_id', $id)->exists()) {
-            $message = 'errorMessage';
-            $flash_message = "この物件は既におすすめ登録されています。";
-        } else {
-            $land = Land::find($id);
-            $land->recommend($id);
-            $message = 'successMessage';
-            $flash_message = "おすすめ登録に成功しました。";
-        }
+        $land = Land::find($id);
+        $land->recommend($id);
+        
+        $request->session()->regenerateToken();
 
-        return redirect()->route('admin.land.list')->with($message, $flash_message);
+        return redirect()->route('admin.land.list')->with('message', 'お気に入り登録が完了しました。');
     }
     public function recommendDelete($id) {
         $recommend_land = Recommend::where('land_id', $id)->get();

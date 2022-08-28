@@ -224,7 +224,7 @@ class MansionController extends Controller
     public function csvDownload() {
         $mansions = Mansion::get();
         $today = Carbon::today()->format('Ymd');
-        $file_name = $today . '_mansion_list.csv';
+        $file_name = 'mansion' . $today . '.csv';
         $item_name = [
             'ID', '建物名', '部屋番号', '販売価格', '税金', '都道府県', '市区町村', '番町番地', '土地面積', '建物面積', '部屋数', '間取り', '測定方法', '専有面積', 'バルコニー', 'バルコニー面積', '駐車場', '階数', '建物構造', '築年', '築月', '築日', '方角', '最寄り駅', '最寄り駅までのアクセス方法', '最寄り駅までの距離', '建物構造', '総戸数', '土地権利', '用途地域', '管理会社', '管理形態', '管理費', '修繕積立金', 'その他の費用', '現況', '引渡し日', '小学校', '小学校までの徒歩距離', '中学校', '中学校までの徒歩距離', '取引態様', '設備条件', '物件紹介コメント', 'セールスコメント', '作成日', '更新日',
         ];
@@ -234,7 +234,7 @@ class MansionController extends Controller
     public function filteringCsvDownload(Request $request) {
         $mansions = Mansion::whereHoge($request)->get();
         $today = Carbon::today()->format('Ymd');
-        $file_name = $today . '_mansion_filter.csv';
+        $file_name = $today . '.csv';
         $item_name = [
             'ID', '建物名', '部屋番号', '販売価格', '税金', '都道府県', '市区町村', '番町番地', '土地面積', '建物面積', '部屋数', '間取り', '測定方法', '専有面積', 'バルコニー', 'バルコニー面積', '駐車場', '階数', '建物構造', '築年', '築月', '築日', '方角', '最寄り駅', '最寄り駅までのアクセス方法', '最寄り駅までの距離', '建物構造', '総戸数', '土地権利', '用途地域', '管理会社', '管理形態', '管理費', '修繕積立金', 'その他の費用', '現況', '引渡し日', '小学校', '小学校までの徒歩距離', '中学校', '中学校までの徒歩距離', '取引態様', '設備条件', '物件紹介コメント', 'セールスコメント', '作成日', '更新日',
         ];

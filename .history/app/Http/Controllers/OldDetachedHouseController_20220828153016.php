@@ -152,7 +152,7 @@ class OldDetachedHouseController extends Controller
             $flash_message = "おすすめ登録に成功しました。";
         }
 
-        return redirect()->route('admin.oldDetachedHouse.list')->with($message, $flash_message);
+        return redirect()->route('admin.oldDetachedHouse.list')->with('message', 'お気に入り登録が完了しました。');
     }
     public function recommendDelete($id) {
         $recommend_old_detached_house = Recommend::where('old_detached_house_id', $id)->get();

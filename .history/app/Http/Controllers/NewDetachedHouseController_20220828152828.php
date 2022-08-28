@@ -268,16 +268,8 @@ class NewDetachedHouseController extends Controller
         return view('admin.new_detached_house_group.list', compact('new_detached_house_groups'));
     }
     public function recommendGroupSignUp($id) {
-        if(DB::table('recommends')->where('new_detached_house_group_id', $id)->exists()) {
-            $message = 'errorMessage';
-            $flash_message = "この物件は既におすすめ登録されています。";
-        } else {
-            $new_detached_house_group = NewDetachedHouseGroup::find($id);
-            $new_detached_house_group->recommend($id);
-            $message = 'successMessage';
-            $flash_message = "おすすめ登録に成功しました。";
-        }
-
+        $new_detached_house_group = NewDetachedHouseGroup::find($id);
+        $new_detached_house_group->recommend($id);
         return redirect()->route('admin.newDetachedHouseGroup.list')->with($message, $flash_message);
     }
     public function recommendGroupDelete($id) {

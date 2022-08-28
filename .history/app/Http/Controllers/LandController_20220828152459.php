@@ -162,6 +162,8 @@ class LandController extends Controller
             $flash_message = "おすすめ登録に成功しました。";
         }
 
+        $request->session()->regenerateToken();
+
         return redirect()->route('admin.land.list')->with($message, $flash_message);
     }
     public function recommendDelete($id) {

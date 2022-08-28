@@ -146,13 +146,13 @@ class OldDetachedHouseController extends Controller
             $message = 'errorMessage';
             $flash_message = "この物件は既におすすめ登録されています。";
         } else {
-            $old_detached_house = OldDetachedHouse::find($id);
-            $old_detached_house->recommend($id);
+            $new_detached_house = NewDetachedHouse::find($id);
+            $new_detached_house->recommend($id);
             $message = 'successMessage';
             $flash_message = "おすすめ登録に成功しました。";
         }
 
-        return redirect()->route('admin.oldDetachedHouse.list')->with($message, $flash_message);
+        return redirect()->route('admin.oldDetachedHouse.list')->with('message', 'お気に入り登録が完了しました。');
     }
     public function recommendDelete($id) {
         $recommend_old_detached_house = Recommend::where('old_detached_house_id', $id)->get();
