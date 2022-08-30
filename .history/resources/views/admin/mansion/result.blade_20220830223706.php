@@ -128,15 +128,14 @@
 
 <form action="{{ route('admin.mansion.filteringCsv') }}">
     @csrf
-    <input type="hidden" name="address" value="{{ $request->address }}">
-    <input type="hidden" name="apartment_name" value="{{ $request->apartment_name }}">
+    <input type="hidden" name="lowest_price" value="{{ $request->lowest_price }}">
     <input type="hidden" name="lowest_price" value="{{ $request->lowest_price }}">
     <input type="hidden" name="highest_price" value="{{ $request->highest_price }}">
     <input type="hidden" name="lowest_occupation_area" value="{{ $request->lowest_occupation_area }}">
     <input type="hidden" name="highest_occupation_area" value="{{ $request->highest_occupation_area }}">
     <input type="hidden" name="old" value="{{ $request->old }}">
     <input type="hidden" name="station" value="{{ $request->station }}">
-    <input type="hidden" name="distance_station" value="{{ $request->distance_station }}">
+    <input type="hidden" name="walking_distance_station" value="{{ $request->walking_distance_station }}">
     @if(!empty(request()->plan))
         @foreach($request->plan as $plan)
             <input type="hidden" name="plan[]" value="{{ $plan }}">

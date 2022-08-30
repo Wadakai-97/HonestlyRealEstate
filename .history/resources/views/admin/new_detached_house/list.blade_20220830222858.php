@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', '新築戸建：検索結果')
+@section('title', '新築戸建：物件一覧')
 @section('body')
-<h3>新築戸建：検索結果</h3>
+<h3>新築戸建：物件一覧</h3>
 
 @if (Session::has('message'))
     <div class="alert alert-success">
@@ -146,69 +146,10 @@
     <input type="submit" value="検索">
 </form>
 
-<form action="{{ route('admin.newDetachedHouse.filteringCsv') }}">
+<form action="{{ route('admin.mansion.csv') }}">
     @csrf
     <input type="submit" value="CSV Download">
 </form>
-
-@if(!empty(request()))
-    <div class="search_condition">
-        <h4>現在の検索条件</h4>
-        <p>
-            @if(!empty(request()->address))
-                【住所】{{ $request->address }}
-            @endif
-            @if(!empty(request()->plan))
-                【間取り】
-                @foreach($request->plan as $plan)
-                    @if($plan == 1)
-                    1K/DK/LDK/ワンルーム
-                    @elseif($plan > 1 && $plan < 5 && $plan != 5)
-                    {{ $plan }}K/DK/LDK
-                    @elseif($plan = 5)
-                    5K/DK/LDK以上
-                    @endif
-                @endforeach
-            @endif
-            @if(!empty(request()->lowest_price) && empty(request()->highest_price))
-                【最低価格】{{ $request->lowest_price }}万円
-            @endif
-            @if(empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最高価格】{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最低価格〜最高価格】{{ $request->lowest_price }}万円〜{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->land_right))
-                【土地権利】{{ $request->land_right }}
-            @endif
-            @if(!empty(request()->lowest_land_area) && empty(request()->highest_land_area))
-                【最低土地面積】{{ $request->lowest_land_area }}㎡
-            @endif
-            @if(empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最高土地面積】{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最低土地面積〜最高土地面積】{{ $request->lowest_land_area }}㎡〜{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && empty(request()->highest_building_area))
-                【最低建物面積】{{ $request->lowest_building_area }}㎡
-            @endif
-            @if(empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最高建物面積】{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最低建物面積〜最高建物面積】{{ $request->lowest_building_area }}㎡〜{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->station))
-                【最寄り駅】{{ $request->station }}
-            @endif
-            @if(!empty(request()->walking_distance_station))
-                【駅徒歩】{{ $request->walking_distance_station }}分
-            @endif
-        </p>
-    </div>
-@endif
 
 <table class="list">
     <colgroup>
@@ -254,7 +195,7 @@
                 <td><button id="newDetachedHouseDelete">削除</button></td>
             </tr>
         @empty
-            <p>該当する新築戸建はありません。</p>
+            <p>現在登録されている新築戸建はありません。</p>
         @endforelse
     </tbody>
 </table>

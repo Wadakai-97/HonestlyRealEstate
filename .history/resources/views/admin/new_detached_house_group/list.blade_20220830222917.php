@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', '新築戸建：検索結果')
+@section('title', '新築分譲住宅：物件一覧')
 @section('body')
-<h3>新築戸建：検索結果</h3>
+<h3>新築分譲住宅：物件一覧</h3>
 
 @if (Session::has('message'))
     <div class="alert alert-success">
@@ -9,7 +9,7 @@
     </div>
 @endif
 
-<form action="{{ route('admin.newDetachedHouse.search')}}" method="post" class="filtering_form">
+<form action="{{ route('admin.newDetachedHouseGroup.search')}}" method="post" class="filtering_form">
     @csrf
     <table class="filtering_table">
         <colgroup>
@@ -146,77 +146,18 @@
     <input type="submit" value="検索">
 </form>
 
-<form action="{{ route('admin.newDetachedHouse.filteringCsv') }}">
+<form action="{{ route('admin.newDetachedHouse.csv') }}">
     @csrf
     <input type="submit" value="CSV Download">
 </form>
 
-@if(!empty(request()))
-    <div class="search_condition">
-        <h4>現在の検索条件</h4>
-        <p>
-            @if(!empty(request()->address))
-                【住所】{{ $request->address }}
-            @endif
-            @if(!empty(request()->plan))
-                【間取り】
-                @foreach($request->plan as $plan)
-                    @if($plan == 1)
-                    1K/DK/LDK/ワンルーム
-                    @elseif($plan > 1 && $plan < 5 && $plan != 5)
-                    {{ $plan }}K/DK/LDK
-                    @elseif($plan = 5)
-                    5K/DK/LDK以上
-                    @endif
-                @endforeach
-            @endif
-            @if(!empty(request()->lowest_price) && empty(request()->highest_price))
-                【最低価格】{{ $request->lowest_price }}万円
-            @endif
-            @if(empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最高価格】{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最低価格〜最高価格】{{ $request->lowest_price }}万円〜{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->land_right))
-                【土地権利】{{ $request->land_right }}
-            @endif
-            @if(!empty(request()->lowest_land_area) && empty(request()->highest_land_area))
-                【最低土地面積】{{ $request->lowest_land_area }}㎡
-            @endif
-            @if(empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最高土地面積】{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最低土地面積〜最高土地面積】{{ $request->lowest_land_area }}㎡〜{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && empty(request()->highest_building_area))
-                【最低建物面積】{{ $request->lowest_building_area }}㎡
-            @endif
-            @if(empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最高建物面積】{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最低建物面積〜最高建物面積】{{ $request->lowest_building_area }}㎡〜{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->station))
-                【最寄り駅】{{ $request->station }}
-            @endif
-            @if(!empty(request()->walking_distance_station))
-                【駅徒歩】{{ $request->walking_distance_station }}分
-            @endif
-        </p>
-    </div>
-@endif
-
 <table class="list">
     <colgroup>
-        <col style="width: 36%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
+        <col style="width: 25%;">
+        <col style="width: 10%;">
+        <col style="width: 12%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
         <col style="width: 8%;">
         <col style="width: 10%;">
         <col style="width: 5%;">
@@ -226,39 +167,39 @@
             <th>住所</th>
             <th>間取り</th>
             <th>価格</th>
-            <th>土地権利</th>
             <th>土地面積</th>
             <th>建物面積</th>
+            <th>土地権利</th>
             <th>最寄り駅</th>
             <th colspan="3"></th>
         </tr>
     </thead>
     <tbody>
-        @forelse($new_detached_houses as $new_detached_house)
+        @forelse($new_detached_house_groups as $new_detached_house_group)
             <tr>
-                <td class="hidden">{{ $new_detached_house->id }}</td>
-                <td>{{ $new_detached_house->pref }}{{ $new_detached_house->municipalities }}{{ $new_detached_house->block }}</td>
-                <td>{{ $new_detached_house->number_of_rooms }}{{ $new_detached_house->type_of_room }}</td>
-                <td>{{ $new_detached_house->price }}万円</td>
-                <td>{{ $new_detached_house->land_right }}</td>
-                <td>{{ $new_detached_house->land_area }}㎡</td>
-                <td>{{ $new_detached_house->building_area }}㎡</td>
-                <td>{{ $new_detached_house->station }}まで{{ $new_detached_house->walking_distance_station }}分</td>
+                <td class="hidden">{{ $new_detached_house_group->id }}</td>
+                <td>{{ $new_detached_house_group->pref }}{{ $new_detached_house_group->municipalities }}{{ $new_detached_house_group->block }}</td>
+                <td>{{ $new_detached_house_group->lowest_number_of_rooms }}{{ $new_detached_house_group->lowest_type_of_room }}〜{{ $new_detached_house_group->highest_number_of_rooms }}{{ $new_detached_house_group->highest_type_of_room }}</td>
+                <td>{{ $new_detached_house_group->lowest_price }}万円〜{{ $new_detached_house_group->highest_price }}万円</td>
+                <td>{{ $new_detached_house_group->lowest_land_area }}㎡〜{{ $new_detached_house_group->highest_land_area }}㎡</td>
+                <td>{{ $new_detached_house_group->lowest_building_area }}㎡〜{{ $new_detached_house_group->highest_building_area }}㎡</td>
+                <td>{{ $new_detached_house_group->land_right }}</td>
+                <td>{{ $new_detached_house_group->station }}まで{{ $new_detached_house_group->walking_distance_station }}分</td>
                 <td>
-                    <form methid="POST" action="{{ route('admin.newDetachedHouseRecommend.signUp', ['id' => $new_detached_house->id]) }}">
+                    <form methid="POST" action="{{ route('admin.newDetachedHouseGroupRecommend.signUp', ['id' => $new_detached_house_group->id]) }}">
                         @csrf
-                        <input type="submit" id="newDetachedHouseRecommend" value="★">
+                        <input type="submit" id="newDetachedHouseGroupRecommend" value="★">
                     </form>
                 </td>
-                <td><button onclick="location.href='{{ route('admin.newDetachedHouse.detail', ['id' => $new_detached_house->id]) }}'">詳細</button></td>
-                <td><button id="newDetachedHouseDelete">削除</button></td>
+                <td><button onclick="location.href='{{ route('admin.newDetachedHouseGroup.detail', ['id' => $new_detached_house_group->id]) }}'">詳細</button></td>
+                <td><button id="newDetachedHouseGroupDelete">削除</button></td>
             </tr>
         @empty
-            <p>該当する新築戸建はありません。</p>
+            <p>現在登録されている新築分譲住宅はありません。</p>
         @endforelse
     </tbody>
 </table>
 <div class="d-flex justify-content-center">
-{{ $new_detached_houses->links('pagination::default') }}
+{{ $new_detached_house_groups->links('pagination::default') }}
 </div>
 @endsection

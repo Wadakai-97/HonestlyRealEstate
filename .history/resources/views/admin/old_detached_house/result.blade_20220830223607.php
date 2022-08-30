@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', '新築戸建：検索結果')
+@section('title', '中古戸建：検索結果')
 @section('body')
-<h3>新築戸建：検索結果</h3>
+<h3>中古戸建：検索結果</h3>
 
 @if (Session::has('message'))
     <div class="alert alert-success">
@@ -9,7 +9,7 @@
     </div>
 @endif
 
-<form action="{{ route('admin.newDetachedHouse.search')}}" method="post" class="filtering_form">
+<form action="{{ route('admin.oldDetachedHouse.search')}}" method="post" class="filtering_form">
     @csrf
     <table class="filtering_table">
         <colgroup>
@@ -140,6 +140,19 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <th>築年数</th>
+                <td colspan=3>
+                    <div class="multiple_answers">
+                        <label for="old1"><input type="radio" id="old1" value="5" name="old"> 5年以内</label>
+                        <label for="old2"><input type="radio" id="old2" value="10" name="old"> 10年以内</label>
+                        <label for="old3"><input type="radio" id="old3" value="15" name="old"> 15年以内</label>
+                        <label for="old4"><input type="radio" id="old4" value="20" name="old"> 20年以内</label>
+                        <label for="old5"><input type="radio" id="old5" value="25" name="old"> 25年以内</label>
+                        <label for="old6"><input type="radio" id="old6" value="30" name="old"> 30年以内</label>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -206,19 +219,23 @@
             @if(!empty(request()->walking_distance_station))
                 【駅徒歩】{{ $request->walking_distance_station }}分
             @endif
+            @if(!empty(request()->old))
+                【築年数】{{ $request->old }}年以内
+            @endif
         </p>
     </div>
 @endif
 
 <table class="list">
     <colgroup>
-        <col style="width: 36%;">
+        <col style="width: 27%;">
         <col style="width: 8%;">
         <col style="width: 8%;">
         <col style="width: 8%;">
         <col style="width: 8%;">
         <col style="width: 8%;">
         <col style="width: 10%;">
+        <col style="width: 8%;">
         <col style="width: 5%;">
     </colgroup>
     <thead>
@@ -230,35 +247,37 @@
             <th>土地面積</th>
             <th>建物面積</th>
             <th>最寄り駅</th>
+            <th>完成年</th>
             <th colspan="3"></th>
         </tr>
     </thead>
     <tbody>
-        @forelse($new_detached_houses as $new_detached_house)
+        @forelse($old_detached_houses as $old_detached_house)
             <tr>
-                <td class="hidden">{{ $new_detached_house->id }}</td>
-                <td>{{ $new_detached_house->pref }}{{ $new_detached_house->municipalities }}{{ $new_detached_house->block }}</td>
-                <td>{{ $new_detached_house->number_of_rooms }}{{ $new_detached_house->type_of_room }}</td>
-                <td>{{ $new_detached_house->price }}万円</td>
-                <td>{{ $new_detached_house->land_right }}</td>
-                <td>{{ $new_detached_house->land_area }}㎡</td>
-                <td>{{ $new_detached_house->building_area }}㎡</td>
-                <td>{{ $new_detached_house->station }}まで{{ $new_detached_house->walking_distance_station }}分</td>
+                <td class="hidden">{{ $old_detached_house->id }}</td>
+                <td>{{ $old_detached_house->pref }}{{ $old_detached_house->municipalities }}{{ $old_detached_house->block }}</td>
+                <td>{{ $old_detached_house->number_of_rooms }}{{ $old_detached_house->type_of_room }}</td>
+                <td>{{ $old_detached_house->price }}万円</td>
+                <td>{{ $old_detached_house->land_right }}</td>
+                <td>{{ $old_detached_house->land_area }}㎡</td>
+                <td>{{ $old_detached_house->building_area }}㎡</td>
+                <td>{{ $old_detached_house->station }}まで{{ $old_detached_house->walking_distance_station }}分</td>
+                <td>{{ $old_detached_house->year }}年</td>
                 <td>
-                    <form methid="POST" action="{{ route('admin.newDetachedHouseRecommend.signUp', ['id' => $new_detached_house->id]) }}">
+                    <form methid="POST" action="{{ route('admin.oldDetachedHouseRecommend.signUp', ['id' => $old_detached_house->id]) }}">
                         @csrf
-                        <input type="submit" id="newDetachedHouseRecommend" value="★">
+                        <input type="submit" id="oldDetachedHouseRecommend" value="★">
                     </form>
                 </td>
-                <td><button onclick="location.href='{{ route('admin.newDetachedHouse.detail', ['id' => $new_detached_house->id]) }}'">詳細</button></td>
-                <td><button id="newDetachedHouseDelete">削除</button></td>
+                <td><button onclick="location.href='{{ route('admin.oldDetachedHouse.detail', ['id' => $old_detached_house->id]) }}'">詳細</button></td>
+                <td><button id="oldDetachedHouseDelete">削除</button></td>
             </tr>
         @empty
-            <p>該当する新築戸建はありません。</p>
+            <p>現在登録されている中古戸建はありません。</p>
         @endforelse
     </tbody>
 </table>
 <div class="d-flex justify-content-center">
-{{ $new_detached_houses->links('pagination::default') }}
+    {{ $old_detached_houses->links() }}
 </div>
 @endsection

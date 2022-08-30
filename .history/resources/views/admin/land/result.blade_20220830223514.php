@@ -104,7 +104,7 @@
     <input type="submit" value="検索">
 </form>
 
-<form action="{{ route('admin.land.filteringCsv') }}">
+<form action="{{ route('admin.mansion.filteringCsv') }}">
     @csrf
     <input type="submit" value="CSV Download">
 </form>
