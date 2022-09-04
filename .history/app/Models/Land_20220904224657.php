@@ -276,8 +276,7 @@ class Land extends Model
             $query->where('access_method', '=', $access_method);
         }
     }
-    public function scopeWhereWalkingDistanceStation($query, $request) {
-        $distance_station = $request->distance_station;
+    public function scopeWhereWalkingDistanceStation($query, $distance_station) {
         if(!empty($distance_station)) {
             $query->where('access_method', '=', '徒歩')
                     ->where('distance_station', '<=', $distance_station);

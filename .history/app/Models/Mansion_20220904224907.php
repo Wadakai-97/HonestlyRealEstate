@@ -2,76 +2,72 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\MyList;
 use App\Models\Recommend;
+use App\Models\MansionImage;
 use Illuminate\Support\Facades\DB;
-use App\Models\NewDetachedHouseImage;
 use Illuminate\Database\Eloquent\Model;
 
-class NewDetachedHouse extends Model
+class Mansion extends Model
 {
-    protected $table = 'new_detached_houses';
+    protected $table = 'mansions';
     protected $fillable = [
-        'name',
+        'apartment_name',
+        'room',
         'price',
         'tax',
-        'images',
         'pref',
         'municipalities',
         'block',
-        'number_of_rooms',
-        'type_of_room',
         'land_area',
         'building_area',
+        'number_of_rooms',
+        'type_of_room',
+        'measuring_method',
+        'occupation_area',
         'balcony',
         'balcony_area',
-        'building_coverage_ratio',
-        'floor_area_ratio',
         'parking_lot',
         'floor',
+        'story',
         'year',
         'month',
         'day',
+        'direction',
         'station',
         'access_method',
         'distance_station',
         'building_construction',
+        'total_number_of_households',
         'land_right',
-        'other_fee',
-        'urban_planning',
         'land_use_zones',
-        'restrictions_by_law',
-        'land_classification',
-        'terrain',
-        'adjacent_road',
-        'adjacent_road_width',
-        'private_road',
-        'setback',
-        'setback_length',
-        'water_supply',
-        'sewage_line',
-        'gas',
-        'building_certification_number',
+        'management_company',
+        'management_system',
+        'maintenance_fee',
+        'reserve_fund_for_repair',
+        'other_fee',
         'status',
         'delivery_date',
-        'property_introduction',
-        'sales_comment',
+        'conditions_of_transactions',
         'elementary_school_name',
         'elementary_school_district',
         'junior_high_school_name',
         'junior_high_school_district',
         'terms_and_conditions',
-        'conditions_of_transactions',
+        'property_introduction',
+        'sales_comment',
         'created_at',
         'updated_at',
     ];
 
-    // process
-    public function signUp($request) {
+    //Process
+    public function mansionSignUp($request) {
         DB::transaction(function() use($request) {
-            $new_detached_house = new NewDetachedHouse;
-            $new_detached_house->fill([
-                'name' => $request->name,
+            $mansion = new Mansion;
+            $mansion->fill([
+                'apartment_name' => $request->apartment_name,
+                'room' => $request->room,
                 'price' => $request->price,
                 'tax' => $request->tax,
                 'pref' => $request->pref,
@@ -79,12 +75,16 @@ class NewDetachedHouse extends Model
                 'block' => $request->block,
                 'land_area' => $request->land_area,
                 'building_area' => $request->building_area,
-                'balcony_area' => $request->balcony_area,
                 'number_of_rooms' => $request->number_of_rooms,
                 'type_of_room' => $request->type_of_room,
-                'building_coverage_ratio' => $request->building_coverage_ratio,
-                'floor_area_ratio' => $request->floor_area_ratio,
+                'measuring_method' => $request->measuring_method,
+                'occupation_area' => $request->occupation_area,
+                'direction' => $request->direction,
+                'balcony' => $request->balcony,
+                'balcony_area' => $request->balcony_area,
                 'parking_lot' => $request->parking_lot,
+                'floor' => $request->floor,
+                'story' => $request->story,
                 'year' => $request->year,
                 'month' => $request->month,
                 'day' => $request->day,
@@ -92,21 +92,13 @@ class NewDetachedHouse extends Model
                 'access_method' => $request->access_method,
                 'distance_station' => $request->distance_station,
                 'building_construction' => $request->building_construction,
+                'total_number_of_households' => $request->total_number_of_households,
                 'land_right' => $request->land_right,
-                'urban_planning' => $request->urban_planning,
                 'land_use_zones' => $request->land_use_zones,
-                'restrictions_by_law' => $request->restrictions_by_law,
-                'land_classification' => $request->land_classification,
-                'terrain' => $request->terrain,
-                'adjacent_road' => $request->adjacent_road,
-                'adjacent_road_width' => $request->adjacent_road_width,
-                'private_road' => $request->private_road,
-                'setback' => $request->setback,
-                'setback_length' => $request->setback_length,
-                'water_supply' => $request->water_supply,
-                'sewage_line' => $request->sewage_line,
-                'gas' => $request->gas,
-                'building_certification_number' => $request->building_certification_number,
+                'management_company' => $request->management_company,
+                'management_system' => $request->management_system,
+                'maintenance_fee' => $request->maintenance_fee,
+                'reserve_fund_for_repair' => $request->reserve_fund_for_repair,
                 'other_fee' => $request->other_fee,
                 'status' => $request->status,
                 'delivery_date' => $request->delivery_date,
@@ -119,34 +111,34 @@ class NewDetachedHouse extends Model
                 'terms_and_conditions' => $request->terms_and_conditions,
                 'conditions_of_transactions' => $request->conditions_of_transactions,
             ]);
-            $new_detached_house->save();
+            $mansion->save();
 
             $image_counter = 1;
             for($i=1; $i<21; $i++) {
                 if(!empty($request->file('image' . $i))) {
                     $extension = $request->file('image' . $i)->guessExtension();
-                    $file_name = "No{$new_detached_house->id}_{$image_counter}.{$extension}";
-                    $request->file('image' . $i)->storeAs('/storage/property_images/new_detached_house', $file_name);
-                    $new_detached_house_image = new NewDetachedHouseImage;
-                    $new_detached_house_image->fill([
-                        'new_detached_house_id' => $new_detached_house->id,
+                    $file_name = "No{$mansion->id}_{$image_counter}.{$extension}";
+                    $request->file('image' . $i)->storeAs('/storage/mansion_images', $file_name);
+                    $mansion_image = new MansionImage;
+                    $mansion_image->fill([
+                        'mansion_id' => $mansion->id,
                         'image_id' => $image_counter,
                         'category' => $request->input('category' . $i),
                         'comment' => $request->input('comment' . $i),
                         'path' => $file_name,
                     ]);
-                    $new_detached_house_image->save();
+                    $mansion_image->save();
                     $image_counter++;
                 }
             }
         });
-        return;
     }
-    public function updateNewDetachedHouse($id, $request) {
+    public function updateMansion($id, $request) {
         DB::transaction(function() use($id, $request) {
-            $new_detached_house = NewDetachedHouse::find($id);
-            $new_detached_house->fill([
-                'name' => $request->name,
+            $mansion = Mansion::find($id);
+            $mansion->fill([
+                'apartment_name' => $request->apartment_name,
+                'room' => $request->room,
                 'price' => $request->price,
                 'tax' => $request->tax,
                 'pref' => $request->pref,
@@ -154,34 +146,30 @@ class NewDetachedHouse extends Model
                 'block' => $request->block,
                 'land_area' => $request->land_area,
                 'building_area' => $request->building_area,
-                'balcony_area' => $request->balcony_area,
                 'number_of_rooms' => $request->number_of_rooms,
                 'type_of_room' => $request->type_of_room,
-                'building_coverage_ratio' => $request->building_coverage_ratio,
-                'floor_area_ratio' => $request->floor_area_ratio,
+                'measuring_method' => $request->measuring_method,
+                'occupation_area' => $request->occupation_area,
+                'balcony' => $request->balcony,
+                'balcony_area' => $request->balcony_area,
                 'parking_lot' => $request->parking_lot,
+                'floor' => $request->floor,
+                'story' => $request->story,
                 'year' => $request->year,
                 'month' => $request->month,
                 'day' => $request->day,
+                'direction' => $request->direction,
                 'station' => $request->station,
                 'access_method' => $request->access_method,
                 'distance_station' => $request->distance_station,
                 'building_construction' => $request->building_construction,
+                'total_number_of_households' => $request->total_number_of_households,
                 'land_right' => $request->land_right,
-                'urban_planning' => $request->urban_planning,
                 'land_use_zones' => $request->land_use_zones,
-                'restrictions_by_law' => $request->restrictions_by_law,
-                'land_classification' => $request->land_classification,
-                'terrain' => $request->terrain,
-                'adjacent_road' => $request->adjacent_road,
-                'adjacent_road_width' => $request->adjacent_road_width,
-                'private_road' => $request->private_road,
-                'setback' => $request->setback,
-                'setback_length' => $request->setback_length,
-                'water_supply' => $request->water_supply,
-                'sewage_line' => $request->sewage_line,
-                'gas' => $request->gas,
-                'building_certification_number' => $request->building_certification_number,
+                'management_company' => $request->management_company,
+                'management_system' => $request->management_system,
+                'maintenance_fee' => $request->maintenance_fee,
+                'reserve_fund_for_repair' => $request->reserve_fund_for_repair,
                 'other_fee' => $request->other_fee,
                 'status' => $request->status,
                 'delivery_date' => $request->delivery_date,
@@ -194,18 +182,18 @@ class NewDetachedHouse extends Model
                 'terms_and_conditions' => $request->terms_and_conditions,
                 'conditions_of_transactions' => $request->conditions_of_transactions,
             ]);
-            $new_detached_house->update();
+            $mansion->update();
         });
-        return;
     }
     public function recommend($id) {
         DB::transaction(function() use($id) {
-            $new_detached_house = NewDetachedHouse::find($id);
+            $mansion = Mansion::find($id);
             $recommend = new Recommend;
-            $recommend->new_detached_house_id = $new_detached_house->id;
+            $recommend->mansion_id = $mansion->id;
             $recommend->save();
         });
     }
+
     public function column($request) {
         if($request->sort == "新着順") {
             $column = 'updated_at';
@@ -213,25 +201,23 @@ class NewDetachedHouse extends Model
         if($request->sort == "価格が安い順" || $request->sort == "価格が高い順") {
             $column = 'price';
         }
-        if($request->sort == "土地面積が狭い順" || $request->sort == "土地面積が広い順") {
-            $column = 'land_area';
-        }
-        if($request->sort == "建物面積が狭い順" || $request->sort == "建物面積が広い順") {
-            $column = 'building_area';
+        if($request->sort == "専有面積が狭い順" || $request->sort == "専有面積が広い順") {
+            $column = 'occupation_area';
         }
         if($request->sort == "間取りが広い順" || $request->sort == "間取りが狭い順") {
             $column = 'number_of_rooms';
         }
-        if($request->sort == "築年数が古い順" || $request->sort == "築年数が新しい順") {
+        if($request->sort == "築年数が狭い順" || $request->sort == "築年数が新しい順") {
             $column = 'year';
         }
         return $column;
     }
+
     public function sort($request) {
-        if($request->sort == "新着順" || $request->sort == "価格が高い順" || $request->sort == "土地面積が広い順" || $request->sort == "建物面積が広い順" || $request->sort == "間取りが広い順" || $request->sort == "築年数が新しい順") {
+        if($request->sort == "新着順" || $request->sort == "価格が高い順" || $request->sort == "専有面積が広い順" || $request->sort == "間取りが広い順" || $request->sort == "築年数が新しい順") {
             $type = 'desc';
         }
-        if($request->sort == "価格が安い順" || $request->sort == "土地面積が狭い順" || $request->sort == "建物面積が狭い順" || $request->sort == "間取りが狭い順" || $request->sort == "築年数が古い順") {
+        if($request->sort == "価格が安い順" || $request->sort == "専有面積が狭い順" || $request->sort == "間取りが狭い順" || $request->sort == "築年数が古い順") {
             $type = 'asc';
         }
         return $type;
@@ -259,6 +245,12 @@ class NewDetachedHouse extends Model
             $query->where('municipalities', 'like',  '%' . addcslashes($municipalities, '%_\\') . '%');
         }
     }
+    public function scopeWhereApartmentName($query, $request) {
+        $apartment_name = $request->apartment_name ?? '';
+        if(!empty($apartment_name)) {
+            $query->where('apartment_name', 'like',  '%' . addcslashes($apartment_name, '%_\\') . '%');
+        }
+    }
     public function scopeWhereLowestPrice($query, $request) {
         $lowest_price = $request->lowest_price;
         if(!empty($lowest_price)) {
@@ -271,28 +263,16 @@ class NewDetachedHouse extends Model
             $query->where('price', '<', (int)$highest_price);
         }
     }
-    public function scopeWhereLowestLandArea($query, $request) {
-        $lowest_land_area = $request->lowest_land_area;
-        if(!empty($lowest_land_area)) {
-            $query->where('land_area', '>=', $lowest_land_area);
+    public function scopeWhereLowestOccupationArea($query, $request) {
+        $lowest_occupation_area = $request->lowest_occupation_area;
+        if(!empty($lowest_occupation_area)) {
+            $query->where('occupation_area', '>=', (int)$lowest_occupation_area);
         }
     }
-    public function scopeWhereHighestLandArea($query, $request) {
-        $highest_land_area = $request->highest_land_area;
-        if(!empty($highest_land_area)) {
-            $query->where('land_area', '<', $highest_land_area);
-        }
-    }
-    public function scopeWhereLowestBuildingArea($query, $request) {
-        $lowest_building_area = $request->lowest_building_area;
-        if(!empty($lowest_building_area)) {
-            $query->where('building_area', '>=', $lowest_building_area);
-        }
-    }
-    public function scopeWhereHighestBuildingArea($query, $request) {
-        $highest_building_area = $request->highest_building_area;
-        if(!empty($highest_building_area)) {
-            $query->where('building_area', '<', $highest_building_area);
+    public function scopeWhereHighestOccupationArea($query, $request) {
+        $highest_occupation_area = $request->highest_occupation_area;
+        if(!empty($highest_occupation_area)) {
+            $query->where('occupation_area', '<', (int)$highest_occupation_area);
         }
     }
     public function scopeWherePlan($query, $request) {
@@ -313,6 +293,13 @@ class NewDetachedHouse extends Model
             $query->where('type_of_room', '=', $type_of_room);
         }
     }
+    public function scopeWhereOld($query, $request) {
+        $old = $request->old;
+        if(!empty($old)) {
+            $years_ago = Carbon::today()->year - $old;
+            $query->where('year', '>=', $years_ago);
+        }
+    }
     public function scopeWhereStation($query, $request) {
         $station = $request->station;
         if(!empty($station)) {
@@ -325,10 +312,9 @@ class NewDetachedHouse extends Model
             $query->where('access_method', '=', $access_method);
         }
     }
-    public function scopeWhereWalkingDistanceStation($query, $request) {
-        $distance_station = $request->distance_station;
+    public function scopeWhereWalkingDistanceStation($query, $distance_station) {
         if(!empty($distance_station)) {
-            $query->where('access_method', '=', '徒歩')
+            $query->where('access_method', '=', '')
                     ->where('distance_station', '<=', $distance_station);
         }
     }
@@ -338,21 +324,15 @@ class NewDetachedHouse extends Model
             $query->where('distance_station', '<=', $distance_station);
         }
     }
-    public function scopeWhereLandRight($query, $request) {
-        $land_right = $request->land_right;
-        if(!empty($land_right)) {
-            $query->where('land_right', '=', $land_right);
-        }
-    }
-
-    // Relation
+    //Relation
     public function myLists() {
-        return $this->hasMany(MyList::class, 'new_detached_house_id', 'id');
+        return $this->hasMany(MyList::class, 'mansion_id', 'id');
     }
-    public function newDetachedHouseImages() {
-        return $this->hasMany(NewDetachedHouseImage::class, 'new_detached_house_id', 'id');
+    public function mansionImages() {
+        return $this->hasMany(MansionImage::class, 'mansion_id', 'id');
     }
     public function recommends() {
         return $this->recommends(Recommend::class, 'mansion_id', 'id');
     }
 }
+

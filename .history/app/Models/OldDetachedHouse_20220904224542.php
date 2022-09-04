@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\MyList;
 use App\Models\Recommend;
-use App\Models\LandImage;
 use Illuminate\Support\Facades\DB;
+use App\Models\OldDetachedHouseImage;
 use Illuminate\Database\Eloquent\Model;
 
-class Land extends Model
+class OldDetachedHouse extends Model
 {
-    protected $table = 'lands';
+    protected $table = 'old_detached_houses';
     protected $fillable = [
         'name',
         'price',
@@ -18,19 +19,29 @@ class Land extends Model
         'images',
         'pref',
         'municipalities',
-        'construction_conditions',
+        'block',
+        'number_of_rooms',
+        'type_of_room',
         'land_area',
+        'building_area',
+        'balcony',
+        'balcony_area',
         'building_coverage_ratio',
         'floor_area_ratio',
+        'parking_lot',
+        'floor',
+        'year',
+        'month',
+        'day',
         'station',
         'access_method',
         'distance_station',
+        'building_construction',
         'land_right',
         'other_fee',
         'urban_planning',
         'land_use_zones',
         'restrictions_by_law',
-        'national_land_utilization_law',
         'land_classification',
         'terrain',
         'adjacent_road',
@@ -41,6 +52,7 @@ class Land extends Model
         'water_supply',
         'sewage_line',
         'gas',
+        'building_certification_number',
         'status',
         'delivery_date',
         'property_introduction',
@@ -55,43 +67,51 @@ class Land extends Model
         'updated_at',
     ];
 
-    public function signUp($request) {
+    //Process
+    public function signUp() {
         DB::transaction(function() use($request) {
-            $land = new land;
-            $land->fill([
+            $old_detached_house = new OldDetachedHouse;
+            $old_detached_house->fill([
                 'name' => $request->name,
                 'price' => $request->price,
                 'tax' => $request->tax,
                 'pref' => $request->pref,
                 'municipalities' => $request->municipalities,
                 'block' => $request->block,
-                'construction_conditions' => $request->construction_conditions,
                 'land_area' => $request->land_area,
+                'building_area' => $request->building_area,
+                'balcony_area' => $request->balcony_area,
+                'number_of_rooms' => $request->number_of_rooms,
+                'type_of_room' => $request->type_of_room,
                 'building_coverage_ratio' => $request->building_coverage_ratio,
                 'floor_area_ratio' => $request->floor_area_ratio,
+                'parking_lot' => $request->parking_lot,
+                'year' => $request->year,
+                'month' => $request->month,
+                'day' => $request->day,
+                'station' => $request->station,
+                'access_method' => $request->access_method,
+                'distance_station' => $request->distance_station,
+                'building_construction' => $request->building_construction,
                 'land_right' => $request->land_right,
-                'other_fee' => $request->other_fee,
                 'urban_planning' => $request->urban_planning,
                 'land_use_zones' => $request->land_use_zones,
                 'restrictions_by_law' => $request->restrictions_by_law,
-                'national_land_utilization_law' => $request->national_land_utilization_law,
                 'land_classification' => $request->land_classification,
                 'terrain' => $request->terrain,
-                'adjacent_road' => $request->adjacent_road_width,
-                'adjacent_road_widh' => $request->adjacent_road_width,
-                'private' => $request->private_road,
+                'adjacent_road' => $request->adjacent_road,
+                'adjacent_road_width' => $request->adjacent_road_width,
+                'private_road' => $request->private_road,
                 'setback' => $request->setback,
-                'setback_length' => $request->setback_length,
                 'water_supply' => $request->water_supply,
                 'sewage_line' => $request->sewage_line,
                 'gas' => $request->gas,
+                'building_certification_number' => $request->building_certification_number,
+                'other_fee' => $request->other_fee,
                 'status' => $request->status,
                 'delivery_date' => $request->delivery_date,
                 'property_introduction' => $request->property_introduction,
                 'sales_comment' => $request->sales_comment,
-                'station' => $request->station,
-                'access_method' => $request->access_method,
-                'distance_station' => $request->distance_station,
                 'elementary_school_name' => $request->elementary_school_name,
                 'elementary_school_district' => $request->elementary_school_district,
                 'junior_high_school_name' => $request->junior_high_school_name,
@@ -99,66 +119,73 @@ class Land extends Model
                 'terms_and_conditions' => $request->terms_and_conditions,
                 'conditions_of_transactions' => $request->conditions_of_transactions,
             ]);
-            $land->save();
+            $old_detached_house->save();
 
             $image_counter = 1;
             for($i=1; $i<21; $i++) {
                 if(!empty($request->file('image' . $i))) {
                     $extension = $request->file('image' . $i)->guessExtension();
-                    $file_name = "No{$land->id}_{$image_counter}.{$extension}";
-                    $request->file('image' . $i)->storeAs('/storage/property_images/land', $file_name);
-                    $land_image = new LandImage;
-                    $land_image->fill([
-                        'land_id' => $land->id,
+                    $file_name = "No{$old_detached_house->id}_{$image_counter}.{$extension}";
+                    $request->file('image' . $i)->storeAs('/storage/property_images/old_detached_house', $file_name);
+                    $old_detached_house_image = new OldDetachedHouseImage;
+                    $old_detached_house_image->fill([
+                        'old_detached_house_id' => $old_detached_house->id,
                         'image_id' => $image_counter,
                         'category' => $request->input('category' . $i),
                         'comment' => $request->input('comment' . $i),
                         'path' => $file_name,
                     ]);
-                    $land_image->save();
+                    $old_detached_house_image->save();
                     $image_counter++;
                 }
             }
         });
         return;
     }
-    public function updateLand($id, $request) {
-        DB::transaction(function() use($request) {
-            $land = land::find($id);
-            $land->fill([
+    public function updateOldDetachedHouse($id, $request) {
+        DB::transaction(function() use($id, $request) {
+            $old_detached_house = OldDetachedHouse::find($id);
+            $old_detached_house->fill([
                 'name' => $request->name,
                 'price' => $request->price,
                 'tax' => $request->tax,
                 'pref' => $request->pref,
                 'municipalities' => $request->municipalities,
                 'block' => $request->block,
-                'construction_conditions' => $request->construction_conditions,
                 'land_area' => $request->land_area,
+                'building_area' => $request->building_area,
+                'balcony_area' => $request->balcony_area,
+                'number_of_rooms' => $request->number_of_rooms,
+                'type_of_room' => $request->type_of_room,
                 'building_coverage_ratio' => $request->building_coverage_ratio,
                 'floor_area_ratio' => $request->floor_area_ratio,
+                'parking_lot' => $request->parking_lot,
+                'year' => $request->year,
+                'month' => $request->month,
+                'day' => $request->day,
+                'station' => $request->station,
+                'access_method' => $request->access_method,
+                'distance_station' => $request->distance_station,
+                'building_construction' => $request->building_construction,
                 'land_right' => $request->land_right,
-                'other_fee' => $request->other_fee,
                 'urban_planning' => $request->urban_planning,
                 'land_use_zones' => $request->land_use_zones,
                 'restrictions_by_law' => $request->restrictions_by_law,
-                'national_land_utilization_law' => $request->national_land_utilization_law,
                 'land_classification' => $request->land_classification,
                 'terrain' => $request->terrain,
-                'adjacent_road' => $request->adjacent_road_width,
-                'adjacent_road_widh' => $request->adjacent_road_width,
-                'private' => $request->private_road,
+                'adjacent_road' => $request->adjacent_road,
+                'adjacent_road_width' => $request->adjacent_road_width,
+                'private_road' => $request->private_road,
                 'setback' => $request->setback,
-                'setback_length' => $request->setback_length,
                 'water_supply' => $request->water_supply,
                 'sewage_line' => $request->sewage_line,
                 'gas' => $request->gas,
+                'building_certification_number' => $request->building_certification_number,
+                'other_fee' => $request->other_fee,
                 'status' => $request->status,
                 'delivery_date' => $request->delivery_date,
                 'property_introduction' => $request->property_introduction,
                 'sales_comment' => $request->sales_comment,
-                'station' => $request->station,
-                'access_method' => $request->access_method,
-                'distance_station' => $request->distance_station,
                 'elementary_school_name' => $request->elementary_school_name,
                 'elementary_school_district' => $request->elementary_school_district,
                 'junior_high_school_name' => $request->junior_high_school_name,
@@ -166,15 +193,15 @@ class Land extends Model
                 'terms_and_conditions' => $request->terms_and_conditions,
                 'conditions_of_transactions' => $request->conditions_of_transactions,
             ]);
-            $land->update();
+            $old_detached_house->update();
         });
         return;
     }
     public function recommend($id) {
         DB::transaction(function() use($id) {
-            $land = Land::find($id);
+            $old_detached_house = OldDetachedHouse::find($id);
             $recommend = new Recommend;
-            $recommend->land_id = $land->id;
+            $recommend->old_detached_house_id = $old_detached_house->id;
             $recommend->save();
         });
     }
@@ -188,19 +215,22 @@ class Land extends Model
         if($request->sort == "土地面積が狭い順" || $request->sort == "土地面積が広い順") {
             $column = 'land_area';
         }
-        if($request->sort == "容積率が小さい順" || $request->sort == "容積率が大きい順") {
-            $column = 'floor_area_ratio';
+        if($request->sort == "建物面積が狭い順" || $request->sort == "建物面積が広い順") {
+            $column = 'building_area';
         }
-        if($request->sort == "建ぺい率が小さい順" || $request->sort == "建ぺい率が大きい順") {
-            $column = 'building_coverage_ratio';
+        if($request->sort == "間取りが広い順" || $request->sort == "間取りが狭い順") {
+            $column = 'number_of_rooms';
+        }
+        if($request->sort == "築年数が古い順" || $request->sort == "築年数が新しい順") {
+            $column = 'year';
         }
         return $column;
     }
     public function sort($request) {
-        if($request->sort == "新着順" || $request->sort == "価格が高い順" || $request->sort == "容積率が大きい順" || $request->sort == "建ぺい率が大きい順") {
+        if($request->sort == "新着順" || $request->sort == "価格が高い順" || $request->sort == "土地面積が広い順" || $request->sort == "建物面積が広い順" || $request->sort == "間取りが広い順" || $request->sort == "築年数が新しい順") {
             $type = 'desc';
         }
-        if($request->sort == "価格が安い順" || $request->sort == "容積率が小さい順" || $request->sort == "建ぺい率が小さい順") {
+        if($request->sort == "価格が安い順" || $request->sort == "土地面積が狭い順" || $request->sort == "建物面積が狭い順" || $request->sort == "間取りが狭い順" || $request->sort == "築年数が古い順") {
             $type = 'asc';
         }
         return $type;
@@ -237,7 +267,7 @@ class Land extends Model
     public function scopeWhereHighestPrice($query, $request) {
         $highest_price = $request->highest_price;
         if(!empty($highest_price)) {
-            $query->where('price', '<', (int)$highest_price);
+            $query->where('price', '<=', (int)$highest_price);
         }
     }
     public function scopeWhereLowestLandArea($query, $request) {
@@ -249,19 +279,44 @@ class Land extends Model
     public function scopeWhereHighestLandArea($query, $request) {
         $highest_land_area = $request->highest_land_area;
         if(!empty($highest_land_area)) {
-            $query->where('land_area', '<', $highest_land_area);
+            $query->where('land_area', '<=', $highest_land_area);
         }
     }
-    public function scopeWhereLandArea($query, $request) {
-        $land_right = $request->land_right;
-        if(!empty($land_right)) {
-            $query->where('land_right', '=', $land_right);
+    public function scopeWhereLowestBuildingArea($query, $request) {
+        $lowest_building_area = $request->lowest_building_area;
+        if(!empty($lowest_building_area)) {
+            $query->where('building_area', '>=', $lowest_building_area);
         }
     }
-    public function scopeWhereConstructionConditions($query, $request) {
-        $construction_conditions = $request->construction_conditions;
-        if(!empty($construction_conditions)) {
-            $query->where('construction_conditions', '=', $construction_conditions);
+    public function scopeWhereHighestBuildingArea($query, $request) {
+        $highest_building_area = $request->highest_building_area;
+        if(!empty($highest_building_area)) {
+            $query->where('building_area', '<=', $highest_building_area);
+        }
+    }
+    public function scopeWherePlan($query, $request) {
+        $plan = $request->plan;
+        if(!empty($plan)) {
+            for ($i = 0; $i < count($plan); $i++){
+                if($plan[$i] < 5) {
+                    $query->orwhere('number_of_rooms', '=',  $plan[$i]);
+                } else {
+                    $query->orwhere('number_of_rooms', '>=',  5);
+                }
+            }
+        }
+    }
+    public function scopeWhereTypeOfRoom($query, $request) {
+        $type_of_room = $request->type_of_room;
+        if(!empty($type_of_room)) {
+            $query->where('type_of_room', '=', $type_of_room);
+        }
+    }
+    public function scopeWhereOld($query, $request) {
+        $old = $request->old;
+        if(!empty($old)) {
+            $years_ago = Carbon::today()->year - $old;
+            $query->where('year', '>=', $years_ago);
         }
     }
     public function scopeWhereStation($query, $request) {
@@ -270,17 +325,16 @@ class Land extends Model
             $query->where('station', '=', $station);
         }
     }
+    public function scopeWhereWalkingDistanceStation($query, $walking_distance_station) {
+        if(!empty($walking_distance_station)) {
+            $query->where('access_method', '=', '徒歩')
+                    ->where('distance_station', '<=', $distance_station);
+        }
+    }
     public function scopeWhereAccessMethod($query, $request) {
         $access_method= $request->access_method;
         if(!empty($access_method)) {
             $query->where('access_method', '=', $access_method);
-        }
-    }
-    public function scopeWhereWalkingDistanceStation($query, $request) {
-        $distance_station = $request->distance_station;
-        if(!empty($distance_station)) {
-            $query->where('access_method', '=', '徒歩')
-                    ->where('distance_station', '<=', $distance_station);
         }
     }
     public function scopeWhereDistanceStation($query, $request) {
@@ -296,12 +350,12 @@ class Land extends Model
         }
     }
 
-    //Relaton
+    //Relation
     public function myLists() {
-        return $this->hasMany(MyList::class, 'land_id', 'id');
+        return $this->hasMany(MyList::class, 'old_detached_house_id', 'id');
     }
-    public function landImages() {
-        return $this->hasMany(LandImage::class, 'land_id', 'id');
+    public function oldDetachedHouseImages() {
+        return $this->hasMany(OldDetachedHouseImage::class, 'old_detached_house_id', 'id');
     }
     public function recommends() {
         return $this->recommends(Recommend::class, 'mansion_id', 'id');
