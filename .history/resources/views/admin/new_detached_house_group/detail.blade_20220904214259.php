@@ -47,7 +47,7 @@
             <th>その他費用</th>
             <td>
                 @if(empty($new_detached_house_group->other_fee))
-                    なし
+                    <p>なし
                 @elseif(!empty($new_detached_house_group->other_fee))
                     {{ $new_detached_house_group->other_fee }}
                 @endif

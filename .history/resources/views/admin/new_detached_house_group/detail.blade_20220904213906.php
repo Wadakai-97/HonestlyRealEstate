@@ -46,11 +46,8 @@
             </td>
             <th>その他費用</th>
             <td>
-                @if(empty($new_detached_house_group->other_fee))
-                    なし
-                @elseif(!empty($new_detached_house_group->other_fee))
-                    {{ $new_detached_house_group->other_fee }}
-                @endif
+                @if(!empty($new_detached_house_group->other))
+                {{ $new_detached_house_group->other_fee }}
             </td>
         </tr>
         <tr>
@@ -68,7 +65,8 @@
             <td>
                 @if($new_detached_house_group->parking_lot == "あり")
                     {{ $new_detached_house_group->lowest_parking_lot }}台~{{ $new_detached_house_group->highest_parking_lot }}台
-                @elseif($new_detached_house_group->parking_lot == "なし")
+                @endif
+                @if($new_detached_house_group->parking_lot == "なし")
                     <p>なし</p>
                 @endif
             </td>

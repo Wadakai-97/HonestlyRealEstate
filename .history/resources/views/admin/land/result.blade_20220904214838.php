@@ -91,10 +91,10 @@
                 <th>駅徒歩</th>
                 <td>
                     <div class="multiple_answers">
-                        <label for="walk1"><input type="radio" id="walk1" value="5" name="distance_station"> 5分以内</label>
-                        <label for="walk2"><input type="radio" id="walk2" value="10" name="distance_station"> 10分以内</label>
-                        <label for="walk3"><input type="radio" id="walk3" value="15" name="distance_station"> 15分以内</label>
-                        <label for="walk4"><input type="radio" id="walk4" value="20" name="distance_station"> 20分以内</label>
+                        <label for="walk1"><input type="radio" id="walk1" value="5" name="walking_distance_station"> 5分以内</label>
+                        <label for="walk2"><input type="radio" id="walk2" value="10" name="walking_distance_station"> 10分以内</label>
+                        <label for="walk3"><input type="radio" id="walk3" value="15" name="walking_distance_station"> 15分以内</label>
+                        <label for="walk4"><input type="radio" id="walk4" value="20" name="walking_distance_station"> 20分以内</label>
                     </div>
                 </td>
             </tr>

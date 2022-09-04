@@ -59,7 +59,7 @@ class OldDetachedHouseController extends Controller
                                                 ->whereHighestBuildingArea($request)
                                                 ->whereOld($request)
                                                 ->whereStation($request)
-                                                ->whereDistanceStation($request)
+                                                ->whereWalkingDistanceStation($request)
                                                 ->whereLandRight($request)
                                                 ->orderBy($column, $type)
                                                 ->paginate(15);

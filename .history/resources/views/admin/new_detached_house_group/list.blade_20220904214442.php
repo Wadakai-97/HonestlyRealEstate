@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', '中古戸建：検索結果')
+@section('title', '新築分譲住宅：物件一覧')
 @section('body')
-<h3>中古戸建：検索結果</h3>
+<h3>新築分譲住宅：物件一覧</h3>
 
 @if (Session::has('message'))
     <div class="alert alert-success">
@@ -9,7 +9,7 @@
     </div>
 @endif
 
-<form action="{{ route('admin.oldDetachedHouse.search')}}" method="post" class="filtering_form">
+<form action="{{ route('admin.newDetachedHouseGroup.search')}}" method="post" class="filtering_form">
     @csrf
     <table class="filtering_table">
         <colgroup>
@@ -133,23 +133,10 @@
                 <th>駅徒歩</th>
                 <td>
                     <div class="multiple_answers">
-                        <label for="walk1"><input type="radio" id="walk1" value="5" name="distance_station"> 5分以内</label>
-                        <label for="walk2"><input type="radio" id="walk2" value="10" name="distance_station"> 10分以内</label>
-                        <label for="walk3"><input type="radio" id="walk3" value="15" name="distance_station"> 15分以内</label>
-                        <label for="walk4"><input type="radio" id="walk4" value="20" name="distance_station"> 20分以内</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>築年数</th>
-                <td colspan=3>
-                    <div class="multiple_answers">
-                        <label for="old1"><input type="radio" id="old1" value="5" name="old"> 5年以内</label>
-                        <label for="old2"><input type="radio" id="old2" value="10" name="old"> 10年以内</label>
-                        <label for="old3"><input type="radio" id="old3" value="15" name="old"> 15年以内</label>
-                        <label for="old4"><input type="radio" id="old4" value="20" name="old"> 20年以内</label>
-                        <label for="old5"><input type="radio" id="old5" value="25" name="old"> 25年以内</label>
-                        <label for="old6"><input type="radio" id="old6" value="30" name="old"> 30年以内</label>
+                        <label for="walk1"><input type="radio" id="walk1" value="5" name="walking_distance_station"> 5分以内</label>
+                        <label for="walk2"><input type="radio" id="walk2" value="10" name="walking_distance_station"> 10分以内</label>
+                        <label for="walk3"><input type="radio" id="walk3" value="15" name="walking_distance_station"> 15分以内</label>
+                        <label for="walk4"><input type="radio" id="walk4" value="20" name="walking_distance_station"> 20分以内</label>
                     </div>
                 </td>
             </tr>
@@ -159,83 +146,20 @@
     <input type="submit" value="検索">
 </form>
 
-<form action="{{ route('admin.oldDetachedHouse.filteringCsv') }}">
+<form action="{{ route('admin.newDetachedHouseGroup.csv') }}">
     @csrf
     <input type="submit" value="CSV Download">
 </form>
 
-@if(!empty(request()))
-    <div class="search_condition">
-        <h4>現在の検索条件</h4>
-        <p>
-            @if(!empty(request()->address))
-                【住所】{{ $request->address }}
-            @endif
-            @if(!empty(request()->plan))
-                【間取り】
-                @foreach($request->plan as $plan)
-                    @if($plan == 1)
-                    1K/DK/LDK/ワンルーム
-                    @elseif($plan > 1 && $plan < 5 && $plan != 5)
-                    {{ $plan }}K/DK/LDK
-                    @elseif($plan = 5)
-                    5K/DK/LDK以上
-                    @endif
-                @endforeach
-            @endif
-            @if(!empty(request()->lowest_price) && empty(request()->highest_price))
-                【最低価格】{{ $request->lowest_price }}万円
-            @endif
-            @if(empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最高価格】{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->lowest_price) && !empty(request()->highest_price))
-                【最低価格〜最高価格】{{ $request->lowest_price }}万円〜{{ $request->highest_price }}万円
-            @endif
-            @if(!empty(request()->land_right))
-                【土地権利】{{ $request->land_right }}
-            @endif
-            @if(!empty(request()->lowest_land_area) && empty(request()->highest_land_area))
-                【最低土地面積】{{ $request->lowest_land_area }}㎡
-            @endif
-            @if(empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最高土地面積】{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_land_area) && !empty(request()->highest_land_area))
-                【最低土地面積〜最高土地面積】{{ $request->lowest_land_area }}㎡〜{{ $request->highest_land_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && empty(request()->highest_building_area))
-                【最低建物面積】{{ $request->lowest_building_area }}㎡
-            @endif
-            @if(empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最高建物面積】{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->lowest_building_area) && !empty(request()->highest_building_area))
-                【最低建物面積〜最高建物面積】{{ $request->lowest_building_area }}㎡〜{{ $request->highest_building_area }}㎡
-            @endif
-            @if(!empty(request()->station))
-                【最寄り駅】{{ $request->station }}
-            @endif
-            @if(!empty(request()->distance_station))
-                【駅徒歩】{{ $request->distance_station }}分
-            @endif
-            @if(!empty(request()->old))
-                【築年数】{{ $request->old }}年以内
-            @endif
-        </p>
-    </div>
-@endif
-
 <table class="list">
     <colgroup>
-        <col style="width: 27%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
-        <col style="width: 8%;">
+        <col style="width: 25%;">
+        <col style="width: 10%;">
+        <col style="width: 12%;">
+        <col style="width: 10%;">
         <col style="width: 10%;">
         <col style="width: 8%;">
+        <col style="width: 10%;">
         <col style="width: 5%;">
     </colgroup>
     <thead>
@@ -243,41 +167,39 @@
             <th>住所</th>
             <th>間取り</th>
             <th>価格</th>
-            <th>土地権利</th>
             <th>土地面積</th>
             <th>建物面積</th>
+            <th>土地権利</th>
             <th>最寄り駅</th>
-            <th>完成年</th>
             <th colspan="3"></th>
         </tr>
     </thead>
     <tbody>
-        @forelse($old_detached_houses as $old_detached_house)
+        @forelse($new_detached_house_groups as $new_detached_house_group)
             <tr>
-                <td class="hidden">{{ $old_detached_house->id }}</td>
-                <td>{{ $old_detached_house->pref }}{{ $old_detached_house->municipalities }}{{ $old_detached_house->block }}</td>
-                <td>{{ $old_detached_house->number_of_rooms }}{{ $old_detached_house->type_of_room }}</td>
-                <td>{{ $old_detached_house->price }}万円</td>
-                <td>{{ $old_detached_house->land_right }}</td>
-                <td>{{ $old_detached_house->land_area }}㎡</td>
-                <td>{{ $old_detached_house->building_area }}㎡</td>
-                <td>{{ $old_detached_house->station }}まで{{ $old_detached_house->distance_station }}分</td>
-                <td>{{ $old_detached_house->year }}年</td>
+                <td class="hidden">{{ $new_detached_house_group->id }}</td>
+                <td>{{ $new_detached_house_group->pref }}{{ $new_detached_house_group->municipalities }}{{ $new_detached_house_group->block }}</td>
+                <td>{{ $new_detached_house_group->lowest_number_of_rooms }}{{ $new_detached_house_group->lowest_type_of_room }}〜{{ $new_detached_house_group->highest_number_of_rooms }}{{ $new_detached_house_group->highest_type_of_room }}</td>
+                <td>number_format({{ $new_detached_house_group->lowest_price }})万円〜{{ $new_detached_house_group->highest_price }}万円</td>
+                <td>{{ $new_detached_house_group->lowest_land_area }}㎡〜{{ $new_detached_house_group->highest_land_area }}㎡</td>
+                <td>{{ $new_detached_house_group->lowest_building_area }}㎡〜{{ $new_detached_house_group->highest_building_area }}㎡</td>
+                <td>{{ $new_detached_house_group->land_right }}</td>
+                <td>{{ $new_detached_house_group->station }}まで{{ $new_detached_house_group->distance_station }}分</td>
                 <td>
-                    <form methid="POST" action="{{ route('admin.oldDetachedHouseRecommend.signUp', ['id' => $old_detached_house->id]) }}">
+                    <form methid="POST" action="{{ route('admin.newDetachedHouseGroupRecommend.signUp', ['id' => $new_detached_house_group->id]) }}">
                         @csrf
-                        <input type="submit" id="oldDetachedHouseRecommend" value="★">
+                        <input type="submit" id="newDetachedHouseGroupRecommend" value="★">
                     </form>
                 </td>
-                <td><button onclick="location.href='{{ route('admin.oldDetachedHouse.detail', ['id' => $old_detached_house->id]) }}'">詳細</button></td>
-                <td><button id="oldDetachedHouseDelete">削除</button></td>
+                <td><button onclick="location.href='{{ route('admin.newDetachedHouseGroup.detail', ['id' => $new_detached_house_group->id]) }}'">詳細</button></td>
+                <td><button id="newDetachedHouseGroupDelete">削除</button></td>
             </tr>
         @empty
-            <p>現在登録されている中古戸建はありません。</p>
+            <p>現在登録されている新築分譲住宅はありません。</p>
         @endforelse
     </tbody>
 </table>
 <div class="d-flex justify-content-center">
-    {{ $old_detached_houses->links() }}
+{{ $new_detached_house_groups->links('pagination::default') }}
 </div>
 @endsection

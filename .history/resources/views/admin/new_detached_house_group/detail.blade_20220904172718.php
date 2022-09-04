@@ -46,11 +46,7 @@
             </td>
             <th>その他費用</th>
             <td>
-                @if(empty($new_detached_house_group->other_fee))
-                    なし
-                @elseif(!empty($new_detached_house_group->other_fee))
-                    {{ $new_detached_house_group->other_fee }}
-                @endif
+                {{ $new_detached_house_group->other_fee }}
             </td>
         </tr>
         <tr>
@@ -66,10 +62,10 @@
         <tr>
             <th>駐車場</th>
             <td>
+                @if($new_detached_house_group->parking_lot == "なし")
+                @endif
                 @if($new_detached_house_group->parking_lot == "あり")
                     {{ $new_detached_house_group->lowest_parking_lot }}台~{{ $new_detached_house_group->highest_parking_lot }}台
-                @elseif($new_detached_house_group->parking_lot == "なし")
-                    <p>なし</p>
                 @endif
             </td>
             <th>現況</th>
@@ -99,8 +95,11 @@
         </tr>
         <tr>
             <th>最寄り駅</th>
-            <td colspan=3>
-                {{ $new_detached_house_group->station }}まで徒歩{{ $new_detached_house_group->distance_station }}分
+            <td>
+                {{ $new_detached_house_group->station }}まで徒歩{{ $new_detached_house_group->walking_distance_station }}分
+            </td>
+            <th>物件画像（複数可能）</th>
+            <td>
             </td>
         </tr>
     </tbody>
