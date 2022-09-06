@@ -235,7 +235,7 @@
                             <label for="noSetback">なし
                             <input type="radio" name="setback" id="noSetback" value="なし" onclick="setbackClick()" @if(old('setback', $land->setback) === 'なし') checked @endif></label>
                             <label for="yesSetback">あり
-                            <input type="radio" name="setback" id="haveSetback" value="あり" onclick="setbackClick()" @if(old('setback', $land->setback) === 'あり') checked @endif></label>
+                            <input type="radio" name="setback" id="haveSetback" value="あり" onclick="setbackClick()" @if(old('balcony', $land->setback) === 'あり') checked @endif></label>
                             <div id="setbackLengthForm">
                                 <label for="setbackLength">セットバック幅：
                                 <input type="number" name="setback_length" id="setbackLength" value="{{ old('setback_length', $land->setback_length) }}">m</label>

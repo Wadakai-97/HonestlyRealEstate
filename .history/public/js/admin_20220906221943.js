@@ -128,8 +128,8 @@ function multiSetbackClick() {
     let setbackLengthForm = document.getElementById("setbackLengthForm");
 
     if (noSetback.checked) {
-        lowestSetbackLength.value = "";
-        highestSetbackLength.value = "";
+        setbackLength.value = "";
+        setbackLength.value = "";
         setbackLengthForm.style.visibility = "hidden";
     } else {
         setbackLengthForm.style.visibility = "visible";

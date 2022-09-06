@@ -380,7 +380,7 @@
                                     <label for="lowestSetbackLength">最小：
                                     <input type="number" name="lowest_setback_length" id="lowestSetbackLength" value="{{ old('lowest_setback_length', $new_detached_house_group->lowest_setback_length) }}"> m〜</label>
                                     <label for="highestSetbackLength">最大：
-                                    <input type="number" name="highest_setback_length" id="highestSetbackLength" value="{{ old('highest_setback_length', $new_detached_house_group->highest_setback_length) }}"> m</label>
+                                    <input type="number" name="highest_setback_length" id="highestSetbackLength" value="{{ old('highest_setback_length', $new_detached_house_group->setback_length) }}"> m</label>
                                 </div>
                                 <span class="help-block">{{$errors->first('setback')}}</span>
                                 <span class="help-block">{{$errors->first('lowest_setback_length')}}</span>

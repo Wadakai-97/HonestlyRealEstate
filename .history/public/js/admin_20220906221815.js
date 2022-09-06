@@ -120,16 +120,14 @@ function setbackClick() {
         setbackLengthForm.style.visibility = "visible";
     }
 }
-// セットバック（あるorない）※新築分譲住宅
-function multiSetbackClick() {
+セットバック（あるorない）※
+function setbackClick() {
     let noSetback = document.getElementById("noSetback");
-    let lowestSetbackLength = document.getElementById("lowestSetbackLength");
-    let highestSetbackLength = document.getElementById("highestSetbackLength");
+    let setbackLength = document.getElementById("setbackLength");
     let setbackLengthForm = document.getElementById("setbackLengthForm");
 
     if (noSetback.checked) {
-        lowestSetbackLength.value = "";
-        highestSetbackLength.value = "";
+        setbackLength.value = "";
         setbackLengthForm.style.visibility = "hidden";
     } else {
         setbackLengthForm.style.visibility = "visible";

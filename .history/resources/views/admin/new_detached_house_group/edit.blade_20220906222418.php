@@ -375,12 +375,10 @@
                                 <label for="noSetback">なし
                                 <input type="radio" name="setback" id="noSetback" value="なし" onclick="multiSetbackClick()" @if(old('setback', $new_detached_house_group->setback) === 'なし') checked @endif></label>
                                 <label for="yesSetback">あり
-                                <input type="radio" name="setback" id="haveSetback" value="あり" onclick="multiSetbackClick()" @if(old('setback', $new_detached_house_group->setback) === 'あり') checked @endif></label>
+                                <input type="radio" name="setback" id="haveSetback" value="あり" onclick="multiSetbackClick()" @if(old('highest_setback_length', $new_detached_house_group->setback) === 'あり') checked @endif></label>
                                 <div id="setbackLengthForm">
-                                    <label for="lowestSetbackLength">最小：
-                                    <input type="number" name="lowest_setback_length" id="lowestSetbackLength" value="{{ old('lowest_setback_length', $new_detached_house_group->lowest_setback_length) }}"> m〜</label>
-                                    <label for="highestSetbackLength">最大：
-                                    <input type="number" name="highest_setback_length" id="highestSetbackLength" value="{{ old('highest_setback_length', $new_detached_house_group->highest_setback_length) }}"> m</label>
+                                    <label for="setbackLength">セットバック幅：
+                                    <input type="number" name="setback_length" id="setbackLength" value="{{ old('setback_length', $new_detached_house_group->setback_length) }}">m</label>
                                 </div>
                                 <span class="help-block">{{$errors->first('setback')}}</span>
                                 <span class="help-block">{{$errors->first('lowest_setback_length')}}</span>

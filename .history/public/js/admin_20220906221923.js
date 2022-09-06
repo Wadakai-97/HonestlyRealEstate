@@ -124,12 +124,11 @@ function setbackClick() {
 function multiSetbackClick() {
     let noSetback = document.getElementById("noSetback");
     let lowestSetbackLength = document.getElementById("lowestSetbackLength");
-    let highestSetbackLength = document.getElementById("highestSetbackLength");
+    let lowestSetbackLength = document.getElementById("highestestSetbackLength");
     let setbackLengthForm = document.getElementById("setbackLengthForm");
 
     if (noSetback.checked) {
-        lowestSetbackLength.value = "";
-        highestSetbackLength.value = "";
+        setbackLength.value = "";
         setbackLengthForm.style.visibility = "hidden";
     } else {
         setbackLengthForm.style.visibility = "visible";

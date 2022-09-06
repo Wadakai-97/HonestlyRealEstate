@@ -129,7 +129,7 @@ function multiSetbackClick() {
 
     if (noSetback.checked) {
         lowestSetbackLength.value = "";
-        highestSetbackLength.value = "";
+        setbackLength.value = "";
         setbackLengthForm.style.visibility = "hidden";
     } else {
         setbackLengthForm.style.visibility = "visible";
